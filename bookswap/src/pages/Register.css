@@ -1,0 +1,32 @@
+.borderRegister {
+  height: 85vh;
+  text-align: center;
+}
+
+.tap-top-bottom {
+  padding: 30px;
+  background-color: #002e46;
+}
+
+.text-register {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 50px;
+  font-family: "Abel";
+}
+
+.input-register {
+  margin-bottom: 20px;
+}
+
+.button-register {
+  background-color: #002e46 !important;
+  color: white !important;
+  margin: 20px;
+  width: 150px;
+  font-family: "Abel";
+}
+
+.text-account {
+  font-family: "Abel";
+}

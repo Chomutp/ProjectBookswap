@@ -1,0 +1,32 @@
+.borderLogin {
+  height: 85vh;
+  text-align: center;
+}
+
+.tap-top-bottom {
+  padding: 30px;
+  background-color: #002e46;
+}
+
+.text-login {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 50px;
+  font-family: "Abel";
+}
+
+.input-login {
+  margin-bottom: 20px;
+}
+
+.button-login {
+  background-color: #002e46 !important;
+  color: white !important;
+  margin: 20px;
+  width: 150px;
+  font-family: "Abel";
+}
+
+.text-account {
+  font-family: "Abel";
+}

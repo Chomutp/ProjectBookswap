@@ -1,0 +1,41 @@
+.sider-store {
+  background-color: white !important;
+  padding-top: 10vh;
+  box-shadow: 10px 0px 33px -2px rgba(0, 0, 0, 0.31);
+}
+
+.nav-typebook-store {
+  background-color: #969696;
+  height: 50vh;
+}
+
+.nav-typebook-store button {
+  background-color: #002e46;
+  margin: 10px;
+  width: 80%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.nav-navbar-store {
+  background-color: #002e46 !important;
+}
+
+.nav-navbar-store .nav-button-store {
+  float: right;
+}
+
+.nav-button-store button {
+  font-weight: bold;
+}
+
+/*  */
+.content-store {
+  padding-top: 50px;
+  padding-bottom: 10%;
+  background-color: #ececec;
+}
+
+.content-card-store {
+  margin-bottom: 20px;
+}

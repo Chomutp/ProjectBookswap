@@ -1,0 +1,32 @@
+.content-addbook {
+  background-color: white !important;
+  height: 83vh;
+}
+
+.user-profile-addbook {
+  background-color: #dfdfdf;
+}
+
+.user-mybook-addbook {
+  background-color: #ebebeb;
+}
+
+.border-row-addbook {
+  height: 50vh;
+}
+
+.border-col-addbook {
+  background-color: white;
+  height: 70vh;
+  box-shadow: 0px 7px 7px -2px rgba(0, 0, 0, 0.2);
+}
+
+.addbook-button-cancle {
+  background-color: #ec6e6e !important;
+  color: white !important;
+}
+
+.addbook-button-add {
+  background-color: #002e46 !important;
+  color: white !important;
+}

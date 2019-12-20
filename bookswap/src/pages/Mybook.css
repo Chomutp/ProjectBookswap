@@ -1,0 +1,68 @@
+.user-profile {
+  background-color: #c4c4c4;
+
+  box-shadow: 10px 10px 25px 1px rgba(0, 0, 0, 0.28);
+}
+
+.user-mybook {
+  background-color: #ebebeb;
+}
+
+.user-mybook p {
+  font-size: 150%;
+  font-style: bold;
+}
+
+.user-upload-mybook {
+  margin: 20px;
+}
+
+.content {
+  background-color: white !important;
+  height: 83vh;
+}
+
+.navbar {
+  background-color: #002e46 !important;
+}
+
+.ant-layout-footer {
+  background-color: #002e46 !important;
+}
+
+.input-profile-mybook {
+  padding-bottom: 4%;
+  margin: 0 9%;
+}
+
+.navbar .nav-button {
+  float: right;
+}
+
+.nav-button button {
+  font-weight: bold;
+}
+
+.navbar .nav-logo {
+  float: left;
+}
+
+.nav-logo p {
+  color: white;
+  font-weight: bold;
+  font-size: large;
+}
+
+.nav-logo:hover p {
+  color: #ffd700;
+  font-weight: bold;
+  font-size: large;
+}
+
+.navButColor:hover {
+  color: #ffd700 !important;
+}
+
+.content-card-mybook {
+  margin-bottom: 20px;
+}

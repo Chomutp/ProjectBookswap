@@ -1,0 +1,22 @@
+.borderWelcome {
+  height: 85vh;
+  text-align: center;
+}
+
+.tap-top-bottom {
+  padding: 30px;
+  background-color: #002e46;
+  /* background-image: linear-gradient(to bottom right, #002e46 40%, #6aabce); */
+}
+
+.text-welcome {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: "Abel";
+}
+
+.button-welcome {
+  margin: 20px;
+  width: 100px;
+  font-family: "Abel";
+}
