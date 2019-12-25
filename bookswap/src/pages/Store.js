@@ -1,10 +1,32 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Store.css";
-import { Layout, Button, Icon, Row, Col, Card, Avatar } from "antd";
+import { Layout, Button, Icon, Row, Col, Card, Avatar, Modal } from "antd";
 const { Header, Footer, Sider, Content } = Layout;
 
 export default class Store extends Component {
+  state = { visible: false };
+
+  showModal = () => {
+    this.setState({
+      visible: true
+    });
+  };
+
+  handleOk = e => {
+    console.log(e);
+    this.setState({
+      visible: false
+    });
+  };
+
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      visible: false
+    });
+  };
+
   render() {
     return (
       <Layout>
@@ -65,19 +87,35 @@ export default class Store extends Component {
         <Layout className="store-right">
           <Header className="nav-navbar-store">
             <div className="nav-button-store">
-              <Link to="/shoppingcart">
-                <Button type="link" ghost>
-                  <Icon type="shopping-cart" />
-                  Shopping Cart
-                </Button>
-              </Link>
+              <Button type="link" ghost onClick={this.showModal}>
+                <Icon type="shopping-cart" />
+                Shopping Cart
+              </Button>
+              <Modal
+                title="Basic Modal"
+                visible={this.state.visible}
+                onOk={this.handleOk}
+                onCancel={this.handleCancel}
+              >
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+              </Modal>
 
-              <Link to="/swap">
-                <Button type="link" ghost>
-                  <Icon type="retweet" />
-                  Swap Book
-                </Button>
-              </Link>
+              <Button type="link" ghost onClick={this.showModal}>
+                <Icon type="retweet" />
+                Swap Book
+              </Button>
+              <Modal
+                title="Basic Modal"
+                visible={this.state.visible}
+                onOk={this.handleOk}
+                onCancel={this.handleCancel}
+              >
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+              </Modal>
 
               <Link to="/mybook">
                 <Button type="link" ghost>

@@ -11,12 +11,35 @@ import {
   Button,
   Card,
   Divider,
-  Upload
+  Upload,
+  Modal
 } from "antd";
 const { Header, Footer, Content, Sider } = Layout;
 const { TextArea } = Input;
 
 export default class Addbook extends Component {
+  state = { visible: false };
+
+  showModal = () => {
+    this.setState({
+      visible: true
+    });
+  };
+
+  handleOk = e => {
+    console.log(e);
+    this.setState({
+      visible: false
+    });
+  };
+
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      visible: false
+    });
+  };
+
   render() {
     return (
       <Layout>
@@ -27,22 +50,48 @@ export default class Addbook extends Component {
             </Link>
           </div>
           <div className="nav-button">
-            <Link to="/shoppingcart">
-              <Button type="link" ghost>
-                <Icon type="shopping-cart" />
-                Shopping Cart
-              </Button>
-            </Link>
+            <Button
+              type="link"
+              ghost
+              className="navButColor"
+              onClick={this.showModal}
+            >
+              <Icon type="shopping-cart" />
+              Shopping Cart
+            </Button>
+            <Modal
+              title="Basic Modal"
+              visible={this.state.visible}
+              onOk={this.handleOk}
+              onCancel={this.handleCancel}
+            >
+              <p>Some contents...</p>
+              <p>Some contents...</p>
+              <p>Some contents...</p>
+            </Modal>
 
-            <Link to="/swap">
-              <Button type="link" ghost>
-                <Icon type="retweet" />
-                Swap Book
-              </Button>
-            </Link>
+            <Button
+              type="link"
+              ghost
+              className="navButColor"
+              onClick={this.showModal}
+            >
+              <Icon type="retweet" />
+              Swap Book
+            </Button>
+            <Modal
+              title="Basic Modal"
+              visible={this.state.visible}
+              onOk={this.handleOk}
+              onCancel={this.handleCancel}
+            >
+              <p>Some contents...</p>
+              <p>Some contents...</p>
+              <p>Some contents...</p>
+            </Modal>
 
             <Link to="/store">
-              <Button type="link" ghost>
+              <Button type="link" ghost className="navButColor">
                 <Icon type="shop" />
                 Store
               </Button>

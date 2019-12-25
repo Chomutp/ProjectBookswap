@@ -1,11 +1,17 @@
 .user-profile {
-  background-color: #c4c4c4;
+  background-color: #4f6d88;
 
   box-shadow: 10px 10px 25px 1px rgba(0, 0, 0, 0.28);
 }
 
+.profile-pic-user {
+  -webkit-box-shadow: 10px 2px 31px -1px rgba(69, 69, 69, 1);
+  -moz-box-shadow: 10px 2px 31px -1px rgba(69, 69, 69, 1);
+  box-shadow: 10px 2px 31px -1px rgba(69, 69, 69, 1);
+}
+
 .user-mybook {
-  background-color: #ebebeb;
+  background-color: #a7b1c2;
 }
 
 .user-mybook p {
@@ -35,6 +41,12 @@
   margin: 0 9%;
 }
 
+.input-profile-mybook-input {
+  -webkit-box-shadow: 10px 2px 31px -1px rgba(69, 69, 69, 1);
+  -moz-box-shadow: 10px 2px 31px -1px rgba(69, 69, 69, 1);
+  box-shadow: 10px 2px 31px -1px rgba(69, 69, 69, 1);
+}
+
 .navbar .nav-button {
   float: right;
 }
@@ -54,13 +66,19 @@
 }
 
 .nav-logo:hover p {
-  color: #ffd700;
+  color: #ffab00;
   font-weight: bold;
   font-size: large;
+  /* background: -webkit-linear-gradient(#ffedca, #ffab00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+  /* background: linear-gradient(180deg, #ffffff 25%, #facb67 50%, #ffab00 25%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
 }
 
 .navButColor:hover {
-  color: #ffd700 !important;
+  color: #ffab00 !important;
 }
 
 .content-card-mybook {
