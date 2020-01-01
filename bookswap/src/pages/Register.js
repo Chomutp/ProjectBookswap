@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col, Icon, Button, Input } from "antd";
 import "./Register.css";
+import { Row, Col, Icon, Button, Input } from "antd";
+const { TextArea } = Input;
 
 export default class Register extends Component {
   render() {
@@ -38,6 +39,15 @@ export default class Register extends Component {
             <Row className="input-register">
               <Input
                 prefix={
+                  <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
+                }
+                placeholder="Username"
+              />
+            </Row>
+
+            <Row className="input-register">
+              <Input
+                prefix={
                   <Icon type="edit" style={{ color: "rgba(0,0,0,.25)" }} />
                 }
                 placeholder="Name"
@@ -47,9 +57,16 @@ export default class Register extends Component {
             <Row className="input-register">
               <Input
                 prefix={
-                  <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
+                  <Icon type="phone" style={{ color: "rgba(0,0,0,.25)" }} />
                 }
-                placeholder="Username"
+                placeholder="Contact"
+              />
+            </Row>
+
+            <Row className="input-register">
+              <TextArea
+                placeholder="Address"
+                autoSize={{ minRows: 3, maxRows: 5 }}
               />
             </Row>
 

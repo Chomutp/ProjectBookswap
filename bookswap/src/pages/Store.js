@@ -52,31 +52,61 @@ export default class Store extends Component {
           <Row type="flex" justify="center">
             <Col span={20} className="nav-typebook-store">
               <Row type="flex" justify="center">
-                <Button type="primary" icon="book" shape="round" size="large">
+                <Button
+                  type="primary"
+                  icon="book"
+                  shape="round"
+                  size="large"
+                  className="nav-typebook-color"
+                >
                   FICTION
                 </Button>
               </Row>
 
               <Row type="flex" justify="center">
-                <Button type="primary" icon="book" shape="round" size="large">
+                <Button
+                  type="primary"
+                  icon="book"
+                  shape="round"
+                  size="large"
+                  className="nav-typebook-color"
+                >
                   BUSINESS
                 </Button>
               </Row>
 
               <Row type="flex" justify="center">
-                <Button type="primary" icon="book" shape="round" size="large">
+                <Button
+                  type="primary"
+                  icon="book"
+                  shape="round"
+                  size="large"
+                  className="nav-typebook-color"
+                >
                   EDUCATION
                 </Button>
               </Row>
 
               <Row type="flex" justify="center">
-                <Button type="primary" icon="book" shape="round" size="large">
+                <Button
+                  type="primary"
+                  icon="book"
+                  shape="round"
+                  size="large"
+                  className="nav-typebook-color"
+                >
                   DIY
                 </Button>
               </Row>
 
               <Row type="flex" justify="center">
-                <Button type="primary" icon="book" shape="round" size="large">
+                <Button
+                  type="primary"
+                  icon="book"
+                  shape="round"
+                  size="large"
+                  className="nav-typebook-color"
+                >
                   MAGAZINE
                 </Button>
               </Row>
@@ -87,7 +117,12 @@ export default class Store extends Component {
         <Layout className="store-right">
           <Header className="nav-navbar-store">
             <div className="nav-button-store">
-              <Button type="link" ghost onClick={this.showModal}>
+              <Button
+                type="link"
+                ghost
+                onClick={this.showModal}
+                className="navButtonColor"
+              >
                 <Icon type="shopping-cart" />
                 Shopping Cart
               </Button>
@@ -102,7 +137,12 @@ export default class Store extends Component {
                 <p>Some contents...</p>
               </Modal>
 
-              <Button type="link" ghost onClick={this.showModal}>
+              <Button
+                type="link"
+                ghost
+                onClick={this.showModal}
+                className="navButtonColor"
+              >
                 <Icon type="retweet" />
                 Swap Book
               </Button>
@@ -118,7 +158,7 @@ export default class Store extends Component {
               </Modal>
 
               <Link to="/mybook">
-                <Button type="link" ghost>
+                <Button type="link" ghost className="navButtonColor">
                   <Icon type="home" />
                   Home
                 </Button>
@@ -129,293 +169,7 @@ export default class Store extends Component {
           <Content className="content-store">
             <Row gutter={[30, 24]} type="flex" justify="center">
               <Col xs={20} sm={20} md={10} lg={10} xl={5}>
-                <Card hoverable>
-                  <Row
-                    type="flex"
-                    justify="center"
-                    className="content-card-store"
-                  >
-                    <Avatar
-                      shape="square"
-                      size={120}
-                      src="https://gossipstar.com/app/uploads/2019/09/S__64954371.jpg"
-                    />
-                  </Row>
-
-                  <Row type="flex" justify="space-around">
-                    <Button>
-                      <Icon type="shopping-cart" />
-                    </Button>
-
-                    <Button>
-                      <Icon type="retweet" />
-                    </Button>
-                  </Row>
-                </Card>
-              </Col>
-              <Col xs={20} sm={20} md={10} lg={10} xl={5}>
-                <Card hoverable>
-                  <Row
-                    type="flex"
-                    justify="center"
-                    className="content-card-store"
-                  >
-                    <Avatar
-                      shape="square"
-                      size={120}
-                      src="https://gossipstar.com/app/uploads/2019/09/S__64954371.jpg"
-                    />
-                  </Row>
-
-                  <Row type="flex" justify="space-around">
-                    <Button>
-                      <Icon type="shopping-cart" />
-                    </Button>
-
-                    <Button>
-                      <Icon type="retweet" />
-                    </Button>
-                  </Row>
-                </Card>
-              </Col>
-
-              <Col xs={20} sm={20} md={10} lg={10} xl={5}>
-                <Card hoverable>
-                  <Row
-                    type="flex"
-                    justify="center"
-                    className="content-card-store"
-                  >
-                    <Avatar
-                      shape="square"
-                      size={120}
-                      src="https://gossipstar.com/app/uploads/2019/09/S__64954371.jpg"
-                    />
-                  </Row>
-
-                  <Row type="flex" justify="space-around">
-                    <Button>
-                      <Icon type="shopping-cart" />
-                    </Button>
-
-                    <Button>
-                      <Icon type="retweet" />
-                    </Button>
-                  </Row>
-                </Card>
-              </Col>
-
-              <Col xs={20} sm={20} md={10} lg={10} xl={5}>
-                <Card hoverable>
-                  <Row
-                    type="flex"
-                    justify="center"
-                    className="content-card-store"
-                  >
-                    <Avatar
-                      shape="square"
-                      size={120}
-                      src="https://gossipstar.com/app/uploads/2019/09/S__64954371.jpg"
-                    />
-                  </Row>
-
-                  <Row type="flex" justify="space-around">
-                    <Button>
-                      <Icon type="shopping-cart" />
-                    </Button>
-
-                    <Button>
-                      <Icon type="retweet" />
-                    </Button>
-                  </Row>
-                </Card>
-              </Col>
-            </Row>
-
-            <Row gutter={[30, 24]} type="flex" justify="center">
-              <Col xs={20} sm={20} md={10} lg={10} xl={5}>
-                <Card hoverable>
-                  <Row
-                    type="flex"
-                    justify="center"
-                    className="content-card-store"
-                  >
-                    <Avatar
-                      shape="square"
-                      size={120}
-                      src="https://gossipstar.com/app/uploads/2019/09/S__64954371.jpg"
-                    />
-                  </Row>
-
-                  <Row type="flex" justify="space-around">
-                    <Button>
-                      <Icon type="shopping-cart" />
-                    </Button>
-
-                    <Button>
-                      <Icon type="retweet" />
-                    </Button>
-                  </Row>
-                </Card>
-              </Col>
-
-              <Col xs={20} sm={20} md={10} lg={10} xl={5}>
-                <Card hoverable>
-                  <Row
-                    type="flex"
-                    justify="center"
-                    className="content-card-store"
-                  >
-                    <Avatar
-                      shape="square"
-                      size={120}
-                      src="https://gossipstar.com/app/uploads/2019/09/S__64954371.jpg"
-                    />
-                  </Row>
-
-                  <Row type="flex" justify="space-around">
-                    <Button>
-                      <Icon type="shopping-cart" />
-                    </Button>
-
-                    <Button>
-                      <Icon type="retweet" />
-                    </Button>
-                  </Row>
-                </Card>
-              </Col>
-
-              <Col xs={20} sm={20} md={10} lg={10} xl={5}>
-                <Card hoverable>
-                  <Row
-                    type="flex"
-                    justify="center"
-                    className="content-card-store"
-                  >
-                    <Avatar
-                      shape="square"
-                      size={120}
-                      src="https://gossipstar.com/app/uploads/2019/09/S__64954371.jpg"
-                    />
-                  </Row>
-
-                  <Row type="flex" justify="space-around">
-                    <Button>
-                      <Icon type="shopping-cart" />
-                    </Button>
-
-                    <Button>
-                      <Icon type="retweet" />
-                    </Button>
-                  </Row>
-                </Card>
-              </Col>
-
-              <Col xs={20} sm={20} md={10} lg={10} xl={5}>
-                <Card hoverable>
-                  <Row
-                    type="flex"
-                    justify="center"
-                    className="content-card-store"
-                  >
-                    <Avatar
-                      shape="square"
-                      size={120}
-                      src="https://gossipstar.com/app/uploads/2019/09/S__64954371.jpg"
-                    />
-                  </Row>
-
-                  <Row type="flex" justify="space-around">
-                    <Button>
-                      <Icon type="shopping-cart" />
-                    </Button>
-
-                    <Button>
-                      <Icon type="retweet" />
-                    </Button>
-                  </Row>
-                </Card>
-              </Col>
-
-              <Col xs={20} sm={20} md={10} lg={10} xl={5}>
-                <Card hoverable>
-                  <Row
-                    type="flex"
-                    justify="center"
-                    className="content-card-store"
-                  >
-                    <Avatar
-                      shape="square"
-                      size={120}
-                      src="https://gossipstar.com/app/uploads/2019/09/S__64954371.jpg"
-                    />
-                  </Row>
-
-                  <Row type="flex" justify="space-around">
-                    <Button>
-                      <Icon type="shopping-cart" />
-                    </Button>
-
-                    <Button>
-                      <Icon type="retweet" />
-                    </Button>
-                  </Row>
-                </Card>
-              </Col>
-              <Col xs={20} sm={20} md={10} lg={10} xl={5}>
-                <Card hoverable>
-                  <Row
-                    type="flex"
-                    justify="center"
-                    className="content-card-store"
-                  >
-                    <Avatar
-                      shape="square"
-                      size={120}
-                      src="https://gossipstar.com/app/uploads/2019/09/S__64954371.jpg"
-                    />
-                  </Row>
-
-                  <Row type="flex" justify="space-around">
-                    <Button>
-                      <Icon type="shopping-cart" />
-                    </Button>
-
-                    <Button>
-                      <Icon type="retweet" />
-                    </Button>
-                  </Row>
-                </Card>
-              </Col>
-
-              <Col xs={20} sm={20} md={10} lg={10} xl={5}>
-                <Card hoverable>
-                  <Row
-                    type="flex"
-                    justify="center"
-                    className="content-card-store"
-                  >
-                    <Avatar
-                      shape="square"
-                      size={120}
-                      src="https://gossipstar.com/app/uploads/2019/09/S__64954371.jpg"
-                    />
-                  </Row>
-
-                  <Row type="flex" justify="space-around">
-                    <Button>
-                      <Icon type="shopping-cart" />
-                    </Button>
-
-                    <Button>
-                      <Icon type="retweet" />
-                    </Button>
-                  </Row>
-                </Card>
-              </Col>
-
-              <Col xs={20} sm={20} md={10} lg={10} xl={5}>
-                <Card hoverable>
+                <Card hoverable className="card-book-store">
                   <Row
                     type="flex"
                     justify="center"

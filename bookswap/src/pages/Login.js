@@ -23,7 +23,7 @@ export default class Login extends Component {
     const password = this.state.password;
     Axios.post("/login", { username, password })
       .then(result => {
-        console.log(result.data);
+        console.log(result);
         successLoginNotification();
         localStorage.setItem("ACCESS_TOKEN", result.data.token);
         this.props.history.push("/mybook");

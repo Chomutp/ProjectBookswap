@@ -28,6 +28,10 @@
   height: 83vh;
 }
 
+.card-book-mybook {
+  border-radius: 25px !important;
+}
+
 .navbar {
   background-color: #002e46 !important;
 }
@@ -77,10 +81,15 @@
   -webkit-text-fill-color: transparent; */
 }
 
-.navButColor:hover {
+.navButtonColor:hover {
   color: #ffab00 !important;
 }
 
 .content-card-mybook {
   margin-bottom: 20px;
+}
+
+.text-mybook {
+  font-size: 20px;
+  font-weight: bold;
 }

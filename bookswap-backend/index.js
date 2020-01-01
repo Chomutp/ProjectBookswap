@@ -9,6 +9,8 @@ const app = express();
 
 // import passport
 const passport = require("passport");
+const bookService = require("./services/book");
+const swapService = require("./services/swap");
 
 // use the strategy
 app.use(passport.initialize());
@@ -23,7 +25,9 @@ require("./config/passport/passport");
 
 db.sequelize.sync({ force: false }).then(() => {
   userService(app, db);
+  bookService(app, db);
+  swapService(app, db);
   // postService(app, db);
 
-  app.listen(8081, () => console.log("Server is running on port 8081"));
+  app.listen(9999, () => console.log("Server is running on port 9999"));
 });

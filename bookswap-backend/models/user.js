@@ -11,9 +11,19 @@ module.exports = (sequelize, DataType) => {
     }
   });
 
-  // user.associate = models => {
-  //   user.hasMany(models.post, { foreignKey: "user_id" });
-  // };
+  user.associate = models => {
+    user.hasMany(models.book, { foreignKey: "user_id" });
+    user.belongsToMany(user, {
+      as: "request_to",
+      foreignKey: "request_to_id",
+      through: models.swap
+    });
+    user.belongsToMany(user, {
+      as: "request_from",
+      foreignKey: "request_from_id",
+      through: models.swap
+    });
+  };
 
   return user;
 };

@@ -12,13 +12,49 @@ import {
   Card,
   Divider,
   Upload,
-  Modal
+  Modal,
+  Select,
+  message
 } from "antd";
 const { Header, Footer, Content, Sider } = Layout;
 const { TextArea } = Input;
+const { Option } = Select;
 
+function getBase64(img, callback) {
+  const reader = new FileReader();
+  reader.addEventListener("load", () => callback(reader.result));
+  reader.readAsDataURL(img);
+}
+
+function beforeUpload(file) {
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  if (!isJpgOrPng) {
+    message.error("You can only upload JPG/PNG file!");
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error("Image must smaller than 2MB!");
+  }
+  return isJpgOrPng && isLt2M;
+}
 export default class Addbook extends Component {
-  state = { visible: false };
+  state = { visible: false, loading: false };
+
+  handleChange = info => {
+    if (info.file.status === "uploading") {
+      this.setState({ loading: true });
+      return;
+    }
+    if (info.file.status === "done") {
+      // Get this url from response in real world.
+      getBase64(info.file.originFileObj, imageUrl =>
+        this.setState({
+          imageUrl,
+          loading: false
+        })
+      );
+    }
+  };
 
   showModal = () => {
     this.setState({
@@ -41,6 +77,14 @@ export default class Addbook extends Component {
   };
 
   render() {
+    const uploadButton = (
+      <div>
+        <Icon type={this.state.loading ? "loading" : "plus"} />
+        <div className="ant-upload-text">Upload</div>
+      </div>
+    );
+    const { imageUrl } = this.state;
+
     return (
       <Layout>
         <Header className="navbar">
@@ -100,16 +144,26 @@ export default class Addbook extends Component {
         </Header>
 
         <Content>
-          <Row type="flex" justify="space-between" className="content-addbook">
-            <Col span={6} className="user-profile-addbook">
-              <Row>
-                <Upload>
+          <Row type="flex" justify="space-between" className="content">
+            <Col span={6} className="user-profile">
+              <Row type="flex" justify="center" className="user-upload-mybook">
+                <Avatar
+                  className="profile-pic-user"
+                  size={200}
+                  src="https://fbi.dek-d.com/27/0282/2288/117545919"
+                />
+                {/* <Upload>
                   <Avatar size={200} icon="picture" />
-                </Upload>
+                </Upload> */}
               </Row>
 
-              <Row>
+              <Row
+                className="input-profile-mybook"
+                type="flex"
+                justify="center"
+              >
                 <Input
+                  className="input-profile-mybook-input"
                   prefix={
                     <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
                   }
@@ -117,8 +171,13 @@ export default class Addbook extends Component {
                 />
               </Row>
 
-              <Row>
+              <Row
+                className="input-profile-mybook"
+                type="flex"
+                justify="center"
+              >
                 <Input
+                  className="input-profile-mybook-input"
                   prefix={
                     <Icon type="phone" style={{ color: "rgba(0,0,0,.25)" }} />
                   }
@@ -126,38 +185,112 @@ export default class Addbook extends Component {
                 />
               </Row>
 
-              <Row>
-                <TextArea rows={4} placeholder="Address" />
+              <Row
+                className="input-profile-mybook"
+                type="flex"
+                justify="center"
+              >
+                <TextArea
+                  className="input-profile-mybook-input"
+                  rows={4}
+                  placeholder="Address"
+                />
               </Row>
 
-              <Row>
+              <Row type="flex" justify="center">
                 <Button>EDIT</Button>
               </Row>
             </Col>
 
             <Col span={17} className="user-mybook-addbook">
               <Row>
-                <Divider>MY BOOKS</Divider>
+                <Divider>
+                  <span className="text-addbook">ADD BOOK</span>
+                </Divider>
               </Row>
 
               <Row type="flex" justify="center" className="border-row-addbook">
                 <Col span={16} className="border-col-addbook">
-                  <Row type="flex" justify="center" align="middle">
-                    <Upload>
-                      <Avatar size={200} icon="picture" shape="square" />
+                  <Row type="flex" justify="center">
+                    <Upload
+                      name="avatar"
+                      listType="picture-card"
+                      className="avatar-uploader"
+                      showUploadList={false}
+                      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                      beforeUpload={beforeUpload}
+                      onChange={this.handleChange}
+                      className="upload-picbook"
+                    >
+                      {imageUrl ? (
+                        <img
+                          src={imageUrl}
+                          alt="avatar"
+                          style={{ width: "100%" }}
+                        />
+                      ) : (
+                        uploadButton
+                      )}
                     </Upload>
                   </Row>
 
-                  <Row type="flex" justify="center" align="middle">
-                    <Input placeholder="Book Name" />
+                  <Row
+                    type="flex"
+                    justify="center"
+                    align="middle"
+                    className="addbook-input"
+                  >
+                    <Input
+                      prefix={
+                        <Icon
+                          type="book"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
+                      }
+                      placeholder="Book Name"
+                    />
                   </Row>
 
-                  <Row type="flex" justify="center" align="middle">
-                    <Input placeholder="Author" />
+                  <Row
+                    type="flex"
+                    justify="center"
+                    align="middle"
+                    className="addbook-input"
+                  >
+                    <Input
+                      prefix={
+                        <Icon
+                          type="user"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
+                      }
+                      placeholder="Author"
+                    />
                   </Row>
 
-                  <Row type="flex" justify="center" align="middle">
-                    <Input placeholder="Book Detail" />
+                  <Row
+                    type="flex"
+                    justify="center"
+                    align="middle"
+                    className="addbook-input"
+                  >
+                    <Select
+                      showSearch
+                      style={{ width: 200 }}
+                      placeholder="Select Type of Book"
+                      optionFilterProp="children"
+                      filterOption={(input, option) =>
+                        option.props.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                    >
+                      <Option value="Fiction">Fiction</Option>
+                      <Option value="Business">Business</Option>
+                      <Option value="Education">Education</Option>
+                      <Option value="Diy">Diy</Option>
+                      <Option value="Magazine">Magazine</Option>
+                    </Select>
                   </Row>
 
                   <Row type="flex" justify="center" align="middle">

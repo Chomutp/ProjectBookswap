@@ -79,7 +79,7 @@ export default class Mybook extends Component {
             <Button
               type="link"
               ghost
-              className="navButColor"
+              className="navButtonColor"
               onClick={this.showModal}
             >
               <Icon type="shopping-cart" />
@@ -99,7 +99,7 @@ export default class Mybook extends Component {
             <Button
               type="link"
               ghost
-              className="navButColor"
+              className="navButtonColor"
               onClick={this.showModal}
             >
               <Icon type="retweet" />
@@ -117,7 +117,7 @@ export default class Mybook extends Component {
             </Modal>
 
             <Link to="/store">
-              <Button type="link" ghost className="navButColor">
+              <Button type="link" ghost className="navButtonColor">
                 <Icon type="shop" />
                 Store
               </Button>
@@ -187,7 +187,7 @@ export default class Mybook extends Component {
             <Col span={17} className="user-mybook">
               <Row>
                 <Divider>
-                  <p>MY BOOKS</p>
+                  <span className="text-mybook">MY BOOKS</span>
                 </Divider>
               </Row>
 
@@ -195,7 +195,7 @@ export default class Mybook extends Component {
                 {this.state.userBook.map(book => {
                   return (
                     <Col xs={20} sm={20} md={20} lg={10} xl={5}>
-                      <Card hoverable>
+                      <Card hoverable className="card-book-mybook">
                         <Row
                           type="flex"
                           justify="center"
@@ -213,12 +213,8 @@ export default class Mybook extends Component {
                         </Row>
 
                         <Row type="flex" justify="space-around">
-                          <Button>
-                            <Icon type="shopping-cart" />
-                          </Button>
-
-                          <Button>
-                            <Icon type="retweet" />
+                          <Button type="danger">
+                            <Icon type="delete" />
                           </Button>
                         </Row>
                       </Card>
@@ -226,72 +222,9 @@ export default class Mybook extends Component {
                   );
                 })}
 
-                {/* <Col xs={20} sm={20} md={20} lg={10} xl={5}>
-                  <Card hoverable>
-                    <Row
-                      type="flex"
-                      justify="center"
-                      className="content-card-mybook"
-                    >
-                      <Avatar
-                        shape="square"
-                        size={120}
-                        src="https://pngimage.net/wp-content/uploads/2018/05/book-mockup-png-3.png"
-                      />
-                    </Row>
-
-                    <Row>
-                      <Paragraph ellipsis>
-                        Hello Worlddddddddddddddddddddddddd
-                      </Paragraph>
-                    </Row>
-
-                    <Row type="flex" justify="space-around">
-                      <Button>
-                        <Icon type="shopping-cart" />
-                      </Button>
-
-                      <Button>
-                        <Icon type="retweet" />
-                      </Button>
-                    </Row>
-                  </Card>
-                </Col> */}
-
-                {/* <Col xs={20} sm={20} md={20} lg={10} xl={5}>
-                  <Card hoverable>
-                    <Row
-                      type="flex"
-                      justify="center"
-                      className="content-card-mybook"
-                    >
-                      <Avatar
-                        shape="square"
-                        size={120}
-                        src="https://gdb.voanews.com/24A4525A-A09E-42FF-A1CE-B0C291CE5325_cx0_cy11_cw0_w408_r1_s.jpg"
-                      />
-                    </Row>
-                    <Row>
-                      <Paragraph ellipsis>
-                        Hello Worlddddddddddddddddddddddddd
-                      </Paragraph>
-                    </Row>
-
-                    <Row type="flex" justify="space-around">
-                      <Button>
-                        <Icon type="shopping-cart" />
-                      </Button>
-
-                      <Button>
-                        <Icon type="retweet" />
-                      </Button>
-                    </Row>
-                  </Card>
-                </Col> */}
-
                 <Col xs={20} sm={20} md={20} lg={10} xl={5}>
                   <Link to="/addbook">
-                    <Card hoverable>
+                    <Card hoverable className="card-book-mybook">
                       <Row
                         type="flex"
                         justify="center"

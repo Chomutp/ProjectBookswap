@@ -24,9 +24,25 @@
 .addbook-button-cancle {
   background-color: #ec6e6e !important;
   color: white !important;
+  width: 150px !important;
+  margin-right: 20px;
 }
 
 .addbook-button-add {
   background-color: #002e46 !important;
   color: white !important;
+  width: 150px !important;
+}
+
+.text-addbook {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.upload-picbook {
+  margin: 20px 300px !important;
+}
+
+.addbook-input {
+  margin: 20px 150px !important;
 }
