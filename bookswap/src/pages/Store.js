@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import Axios from "../config/axios.setup";
 import "./Store.css";
 import { Layout, Button, Icon, Row, Col, Card, Avatar, Modal } from "antd";
 import Bookcard from "./component/Bookcard";
@@ -10,7 +10,7 @@ export default class Store extends Component {
   state = { visible: false, books: [] };
 
   componentDidMount = async () => {
-    const { data: books } = await axios.get("http://localhost:5555/books");
+    const { data: books } = await Axios.get("http://localhost:9999/books");
     this.setState({ books });
   };
 

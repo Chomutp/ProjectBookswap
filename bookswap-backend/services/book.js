@@ -2,6 +2,16 @@ const passport = require("passport");
 const Sequelize = require("sequelize");
 
 module.exports = (app, db) => {
+  app.get(
+    "/books",
+    // passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      db.book.findAll().then(data => {
+        res.json(data);
+      });
+    }
+  );
+
   app.post(
     "/addbook",
     passport.authenticate("jwt", { session: false }),
