@@ -1,0 +1,22 @@
+[
+  {
+    "typeBook_id": 1,
+    "name_type": "FICTION"
+  },
+  {
+    "typeBook_id": 2,
+    "name_type": "BUSINESS"
+  },
+  {
+    "typeBook_id": 3,
+    "name_type": "EDUCATION"
+  },
+  {
+    "typeBook_id": 4,
+    "name_type": "DIY"
+  },
+  {
+    "typeBook_id": 5,
+    "name_type": "MAGAZINE"
+  }
+]

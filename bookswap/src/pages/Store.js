@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "./Store.css";
 import { Layout, Button, Icon, Row, Col, Card, Avatar, Modal } from "antd";
 import Bookcard from "./component/Bookcard";
 const { Header, Footer, Sider, Content } = Layout;
 
 export default class Store extends Component {
-  state = { visible: false };
+  state = { visible: false, books: [] };
+
+  componentDidMount = async () => {
+    const { data: books } = await axios.get("http://localhost:5555/books");
+    this.setState({ books });
+  };
 
   showModal = () => {
     this.setState({
@@ -161,7 +167,7 @@ export default class Store extends Component {
               <Link to="/mybook">
                 <Button type="link" ghost className="navButtonColor">
                   <Icon type="home" />
-                  Home
+                  Mybook
                 </Button>
               </Link>
             </div>
@@ -169,15 +175,15 @@ export default class Store extends Component {
 
           <Content className="content-store">
             <Row gutter={[30, 24]} type="flex" justify="center">
-              <Bookcard />
-              <Bookcard />
-              <Bookcard />
-              <Bookcard />
-              <Bookcard />
-              <Bookcard />
-              <Bookcard />
-              <Bookcard />
-              <Bookcard />
+              {this.state.books.map(book => (
+                <Bookcard
+                  book_id={book.book_id}
+                  typeBook_id={book.typeBook_id}
+                  image_book={book.image_book}
+                  name_book={book.name_book}
+                  key={book.book_id}
+                />
+              ))}
             </Row>
           </Content>
           {/* <Content className="content-store">
