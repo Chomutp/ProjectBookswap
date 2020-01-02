@@ -38,63 +38,36 @@ const data = [
   }
 ];
 
-export default class Swaptable extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.handleShowModal = this.handleShowModal.bind(this);
-    this.handleOk = this.handleOk.bind(this);
-    this.hhandleCancel = this.handleCancel.bind(this);
-
-    this.state = {
-      visible: false
-    };
-  }
-
-  handleShowModal = () => {
-    this.setState({
-      visible: true
-    });
-  };
-
-  handleOk = e => {
-    console.log(e);
-    this.setState({
-      visible: false
-    });
-  };
-
-  handleCancel = e => {
-    console.log(e);
-    this.setState({
-      visible: false
-    });
-  };
-
+class Swaptable extends Component {
   render() {
     return (
-      <div>
-        <Modal
-          title="SWAP"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-        >
-          <Tabs defaultActiveKey="1">
-            <TabPane tab="Tab 1" key="1">
-              <div>
-                <h4>Small size table</h4>
-                <Table columns={columns} dataSource={data} size="small" />
-              </div>
-            </TabPane>
-            <TabPane tab="Tab 2" key="2">
-              <div>
-                <h4>Small size table</h4>
-                <Table columns={columns} dataSource={data} size="small" />
-              </div>
-            </TabPane>
-          </Tabs>
-        </Modal>
-      </div>
+      <Modal
+        title="SWAP"
+        visible={this.props.visible}
+        onOk={this.props.closeModal}
+        onCancel={this.props.closeModal}
+      >
+        <Tabs defaultActiveKey="1">
+          <TabPane tab="Tab 1" key="1">
+            <div>
+              <h4>Small size table</h4>
+              <Table columns={columns} dataSource={data} size="small" />
+            </div>
+          </TabPane>
+          <TabPane tab="Tab 2" key="2">
+            <div>
+              <h4>Small size table</h4>
+              <Table columns={columns} dataSource={data} size="small" />
+            </div>
+          </TabPane>
+        </Tabs>
+      </Modal>
     );
   }
 }
+
+Swaptable.defaultProps = {
+  visible: false
+};
+
+export default Swaptable;

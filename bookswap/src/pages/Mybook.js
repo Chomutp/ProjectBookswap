@@ -46,13 +46,13 @@ export default class Mybook extends Component {
     ]
   };
 
-  // swapModalRef = ({ handleShowModal }) => {
-  //   this.showModal = handleShowModal;
-  // };
+  openModal = () => {
+    this.setState({ visible: true });
+  };
 
-  // onSwapClick = () => {
-  //   this.showModal = handleShowModal;
-  // };
+  closeModal = () => {
+    this.setState({ visible: false });
+  };
 
   render() {
     return (
@@ -73,14 +73,15 @@ export default class Mybook extends Component {
               type="link"
               ghost
               className="navButtonColor"
-              onClick={this.onSwapClick}
+              onClick={this.openModal}
             >
               <Icon type="retweet" />
               Swap Book
             </Button>
-            <Modal>
-              <Swaptable />
-            </Modal>
+            <Swaptable
+              visible={this.state.visible}
+              closeModal={this.closeModal}
+            />
 
             <Link to="/store">
               <Button type="link" ghost className="navButtonColor">
