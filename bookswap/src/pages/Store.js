@@ -7,7 +7,7 @@ import Bookcard from "./component/Bookcard";
 const { Header, Footer, Sider, Content } = Layout;
 
 export default class Store extends Component {
-  state = { visible: false, books: [] };
+  state = { visible: false, books: [], filterType: "" };
 
   componentDidMount = async () => {
     const { data: books } = await Axios.get("http://localhost:9999/books");
@@ -32,6 +32,10 @@ export default class Store extends Component {
     this.setState({
       visible: false
     });
+  };
+
+  filterBy = bookType => {
+    this.setState({ filterType: bookType });
   };
 
   render() {
@@ -65,6 +69,20 @@ export default class Store extends Component {
                   shape="round"
                   size="large"
                   className="nav-typebook-color"
+                  onClick={() => this.filterBy("all")}
+                >
+                  All
+                </Button>
+              </Row>
+
+              <Row type="flex" justify="center">
+                <Button
+                  type="primary"
+                  icon="book"
+                  shape="round"
+                  size="large"
+                  className="nav-typebook-color"
+                  onClick={() => this.filterBy("fiction")}
                 >
                   FICTION
                 </Button>
@@ -77,6 +95,7 @@ export default class Store extends Component {
                   shape="round"
                   size="large"
                   className="nav-typebook-color"
+                  onClick={() => this.filterBy("business")}
                 >
                   BUSINESS
                 </Button>
@@ -89,6 +108,7 @@ export default class Store extends Component {
                   shape="round"
                   size="large"
                   className="nav-typebook-color"
+                  onClick={() => this.filterBy("education")}
                 >
                   EDUCATION
                 </Button>
@@ -101,6 +121,7 @@ export default class Store extends Component {
                   shape="round"
                   size="large"
                   className="nav-typebook-color"
+                  onClick={() => this.filterBy("diy")}
                 >
                   DIY
                 </Button>
@@ -113,6 +134,7 @@ export default class Store extends Component {
                   shape="round"
                   size="large"
                   className="nav-typebook-color"
+                  onClick={() => this.filterBy("magazine")}
                 >
                   MAGAZINE
                 </Button>
@@ -175,15 +197,29 @@ export default class Store extends Component {
 
           <Content className="content-store">
             <Row gutter={[30, 24]} type="flex" justify="center">
-              {this.state.books.map(book => (
-                <Bookcard
-                  book_id={book.book_id}
-                  typeBook_id={book.typeBook_id}
-                  image_book={book.image_book}
-                  name_book={book.name_book}
-                  key={book.book_id}
-                />
-              ))}
+              {this.state.filterType === "" &&
+                this.state.books.map(book => (
+                  <Bookcard
+                    book_id={book.book_id}
+                    typeBook={book.typeBook}
+                    image_book={book.image_book}
+                    name_book={book.name_book}
+                    key={book.book_id}
+                  />
+                ))}
+
+              {this.state.filterType !== "" &&
+                this.state.books
+                  .filter(book => book.typeBook === this.state.filterType)
+                  .map(book => (
+                    <Bookcard
+                      book_id={book.book_id}
+                      typeBook={book.typeBook}
+                      image_book={book.image_book}
+                      name_book={book.name_book}
+                      key={book.book_id}
+                    />
+                  ))}
             </Row>
           </Content>
           {/* <Content className="content-store">
