@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Tabs, Table, Modal } from "antd";
+import { Tabs, Table, Modal, Icon, Button } from "antd";
 
 const { TabPane } = Tabs;
 
-const columns = [
+const columnsSwapRequestTo = [
   {
     title: "Book",
     dataIndex: "book"
@@ -17,24 +17,47 @@ const columns = [
     dataIndex: "swap"
   }
 ];
-const data = [
+const dataSwapRequestTo = [
   {
     key: "1",
     book: "Book 1",
     namebook: "Book 1",
-    swap: "Progressing"
+    swap: "xxxx"
   },
   {
     key: "2",
     book: "Book 2",
     namebook: "Book 2",
-    swap: "Progressing"
+    swap: "yyyyyy"
+  }
+];
+
+const columnsSwapRequestFrom = [
+  {
+    title: "Book",
+    dataIndex: "book"
   },
   {
-    key: "3",
-    book: "Book 3",
-    namebook: "Book 3",
-    swap: "Progressing"
+    title: "Name's Book",
+    dataIndex: "namebook"
+  },
+  {
+    title: "Swap",
+    dataIndex: "swap"
+  }
+];
+const dataSwapRequestFrom = [
+  {
+    key: "1",
+    book: "Book 1",
+    namebook: "Book 1",
+    swap: "x"
+  },
+  {
+    key: "2",
+    book: "Book 2",
+    namebook: "Book 2",
+    swap: "y"
   }
 ];
 
@@ -42,22 +65,49 @@ class Swaptable extends Component {
   render() {
     return (
       <Modal
-        title="SWAP"
+        title="SWAP BOOK"
         visible={this.props.visible}
-        onOk={this.props.closeModal}
-        onCancel={this.props.closeModal}
+        footer={[
+          <Button type="primary" onClick={this.props.closeSwapModal}>
+            OK
+          </Button>
+        ]}
+        closable={this.props.closable}
       >
         <Tabs defaultActiveKey="1">
-          <TabPane tab="Tab 1" key="1">
+          <TabPane
+            tab="SWAP REQUEST TO ..."
+            key="1"
+            tab={
+              <span>
+                <Icon type="arrow-up" />
+                SWAP REQUEST TO ...
+              </span>
+            }
+          >
             <div>
-              <h4>Small size table</h4>
-              <Table columns={columns} dataSource={data} size="small" />
+              <Table
+                columns={columnsSwapRequestTo}
+                dataSource={dataSwapRequestTo}
+                size="small"
+              />
             </div>
           </TabPane>
-          <TabPane tab="Tab 2" key="2">
+          <TabPane
+            tab={
+              <span>
+                <Icon type="arrow-down" />
+                SWAP REQUEST FROM ...
+              </span>
+            }
+            key="2"
+          >
             <div>
-              <h4>Small size table</h4>
-              <Table columns={columns} dataSource={data} size="small" />
+              <Table
+                columns={columnsSwapRequestFrom}
+                dataSource={dataSwapRequestFrom}
+                size="small"
+              />
             </div>
           </TabPane>
         </Tabs>
@@ -67,7 +117,8 @@ class Swaptable extends Component {
 }
 
 Swaptable.defaultProps = {
-  visible: false
+  visible: false,
+  closable: false
 };
 
 export default Swaptable;

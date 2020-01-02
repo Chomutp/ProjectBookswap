@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Tabs, Table } from "antd";
+import { Tabs, Table, Modal, Button } from "antd";
 
 const { TabPane } = Tabs;
 
-const columns = [
+const columnsShopping = [
   {
     title: "Book",
     dataIndex: "book"
@@ -13,49 +13,49 @@ const columns = [
     dataIndex: "namebook"
   },
   {
-    title: "Swap",
-    dataIndex: "swap"
+    title: "Price",
+    dataIndex: "price"
   }
 ];
-const data = [
+const dataShopping = [
   {
     key: "1",
     book: "Book 1",
     namebook: "Book 1",
-    swap: "Progressing"
+    price: "100 Bath"
   },
   {
     key: "2",
     book: "Book 2",
     namebook: "Book 2",
-    swap: "Progressing"
-  },
-  {
-    key: "3",
-    book: "Book 3",
-    namebook: "Book 3",
-    swap: "Progressing"
+    price: "200 Bath"
   }
 ];
-export default class Shoppingcardtable extends Component {
+
+class Shoppingcardtable extends Component {
   render() {
     return (
-      <div>
-        <Tabs defaultActiveKey="1">
-          <TabPane tab="Tab 1" key="1">
-            <div>
-              <h4>Small size table</h4>
-              <Table columns={columns} dataSource={data} size="small" />
-            </div>
-          </TabPane>
-          <TabPane tab="Tab 2" key="2">
-            <div>
-              <h4>Small size table</h4>
-              <Table columns={columns} dataSource={data} size="small" />
-            </div>
-          </TabPane>
-        </Tabs>
-      </div>
+      <Modal
+        title="SHOPPING CART"
+        visible={this.props.visible}
+        footer={[
+          <Button type="primary" onClick={this.props.closeShoppingModal}>
+            OK
+          </Button>
+        ]}
+        closable={this.props.closable}
+      >
+        <Table
+          columns={columnsShopping}
+          dataSource={dataShopping}
+          size="small"
+        />
+      </Modal>
     );
   }
 }
+Shoppingcardtable.defaultProps = {
+  visible: false,
+  closable: false
+};
+export default Shoppingcardtable;

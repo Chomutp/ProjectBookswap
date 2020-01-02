@@ -7,7 +7,7 @@ import Bookcard from "./component/Bookcard";
 const { Header, Footer, Sider, Content } = Layout;
 
 export default class Store extends Component {
-  state = { visible: false, books: [], filterType: "" };
+  state = { visible: false, books: [], filterType: "all" };
 
   componentDidMount = async () => {
     const { data: books } = await Axios.get("http://localhost:9999/books");
@@ -53,12 +53,14 @@ export default class Store extends Component {
             console.log(collapsed, type);
           }}
         >
-          <Row type="flex" justify="center">
-            <img
-              src="https://scontent.fbkk6-2.fna.fbcdn.net/v/t1.0-9/79293179_2645165115574679_4386875460080893952_n.jpg?_nc_cat=101&_nc_eui2=AeGLoF4zB5cqb_CYF4L3S_pzjxlL51a4BvSkl1MIjlBFQxhWTQDcyf5yckkHOeDtZ9EK2yt8O6s-rp17v7dUoKhL5Sh5JfPkV1PiwWdI1YC_kg&_nc_ohc=ggBboLq8HDoAQlalN93aaI04qZUjrQ9fNHF24NDopZ6NfinV8qtWTdgbg&_nc_pt=1&_nc_ht=scontent.fbkk6-2.fna&oh=40bd93c5a7e1876015e08f6d640dc8a1&oe=5E7F7396"
-              width="200px"
-            />
-          </Row>
+          <a href="/store">
+            <Row type="flex" justify="center">
+              <img
+                src="https://scontent.fbkk6-2.fna.fbcdn.net/v/t1.0-9/79293179_2645165115574679_4386875460080893952_n.jpg?_nc_cat=101&_nc_eui2=AeGLoF4zB5cqb_CYF4L3S_pzjxlL51a4BvSkl1MIjlBFQxhWTQDcyf5yckkHOeDtZ9EK2yt8O6s-rp17v7dUoKhL5Sh5JfPkV1PiwWdI1YC_kg&_nc_ohc=ggBboLq8HDoAQlalN93aaI04qZUjrQ9fNHF24NDopZ6NfinV8qtWTdgbg&_nc_pt=1&_nc_ht=scontent.fbkk6-2.fna&oh=40bd93c5a7e1876015e08f6d640dc8a1&oe=5E7F7396"
+                width="200px"
+              />
+            </Row>
+          </a>
 
           <Row type="flex" justify="center">
             <Col span={20} className="nav-typebook-store">
@@ -71,7 +73,7 @@ export default class Store extends Component {
                   className="nav-typebook-color"
                   onClick={() => this.filterBy("all")}
                 >
-                  All
+                  All BOOKS
                 </Button>
               </Row>
 
@@ -188,7 +190,7 @@ export default class Store extends Component {
 
               <Link to="/mybook">
                 <Button type="link" ghost className="navButtonColor">
-                  <Icon type="home" />
+                  <Icon type="book" />
                   Mybook
                 </Button>
               </Link>
@@ -197,7 +199,7 @@ export default class Store extends Component {
 
           <Content className="content-store">
             <Row gutter={[30, 24]} type="flex" justify="center">
-              {this.state.filterType === "" &&
+              {this.state.filterType === "all" &&
                 this.state.books.map(book => (
                   <Bookcard
                     book_id={book.book_id}
@@ -208,7 +210,7 @@ export default class Store extends Component {
                   />
                 ))}
 
-              {this.state.filterType !== "" &&
+              {this.state.filterType !== "all" &&
                 this.state.books
                   .filter(book => book.typeBook === this.state.filterType)
                   .map(book => (
@@ -222,35 +224,7 @@ export default class Store extends Component {
                   ))}
             </Row>
           </Content>
-          {/* <Content className="content-store">
-            <Row gutter={[30, 24]} type="flex" justify="center">
-              <Col xs={20} sm={20} md={10} lg={10} xl={5}>
-                <Card hoverable className="card-book-store">
-                  <Row
-                    type="flex"
-                    justify="center"
-                    className="content-card-store"
-                  >
-                    <Avatar
-                      shape="square"
-                      size={120}
-                      src="https://gossipstar.com/app/uploads/2019/09/S__64954371.jpg"
-                    />
-                  </Row>
 
-                  <Row type="flex" justify="space-around">
-                    <Button>
-                      <Icon type="shopping-cart" />
-                    </Button>
-
-                    <Button>
-                      <Icon type="retweet" />
-                    </Button>
-                  </Row>
-                </Card>
-              </Col>
-            </Row>
-          </Content> */}
           <Footer>Footer</Footer>
         </Layout>
       </Layout>

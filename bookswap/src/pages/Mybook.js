@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Mybook.css";
 import { Link } from "react-router-dom";
 import Swaptable from "./component/Swaptable";
+import Axios from "../config/axios.setup";
 import Shoppingcardtable from "./component/Shoppingcardtable";
 import {
   Layout,
@@ -23,7 +24,8 @@ const { Paragraph } = Typography;
 
 export default class Mybook extends Component {
   state = {
-    visible: false,
+    visibleSwap: false,
+    visibleShopping: false,
     userBook: [
       {
         id: 1,
@@ -46,12 +48,20 @@ export default class Mybook extends Component {
     ]
   };
 
-  openModal = () => {
-    this.setState({ visible: true });
+  openSwapModal = () => {
+    this.setState({ visibleSwap: true });
   };
 
-  closeModal = () => {
-    this.setState({ visible: false });
+  closeSwapModal = () => {
+    this.setState({ visibleSwap: false });
+  };
+
+  openShoppingModal = () => {
+    this.setState({ visibleShopping: true });
+  };
+
+  closeShoppingModal = () => {
+    this.setState({ visibleShopping: false });
   };
 
   render() {
@@ -65,22 +75,32 @@ export default class Mybook extends Component {
             </Link>
           </div>
           <div className="nav-button">
-            <Button type="link" ghost className="navButtonColor">
-              <Icon type="shopping-cart" />
-              Shopping Cart
-            </Button>
             <Button
               type="link"
               ghost
               className="navButtonColor"
-              onClick={this.openModal}
+              onClick={this.openShoppingModal}
+            >
+              <Icon type="shopping-cart" />
+              Shopping Cart
+            </Button>
+            <Shoppingcardtable
+              visible={this.state.visibleShopping}
+              closeShoppingModal={this.closeShoppingModal}
+            />
+
+            <Button
+              type="link"
+              ghost
+              className="navButtonColor"
+              onClick={this.openSwapModal}
             >
               <Icon type="retweet" />
               Swap Book
             </Button>
             <Swaptable
-              visible={this.state.visible}
-              closeModal={this.closeModal}
+              visible={this.state.visibleSwap}
+              closeSwapModal={this.closeSwapModal}
             />
 
             <Link to="/store">
