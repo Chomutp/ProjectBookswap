@@ -8,7 +8,14 @@
 }
 
 .user-mybook-addbook {
-  background-color: #ebebeb;
+  background-image: linear-gradient(
+    to right,
+    #ffffff,
+    #fafafa,
+    #f5f5f5,
+    #f1f1f1,
+    #ececec
+  );
 }
 
 .border-row-addbook {

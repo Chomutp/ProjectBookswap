@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Store.css";
 import { Layout, Button, Icon, Row, Col, Card, Avatar, Modal } from "antd";
+import Bookcard from "./component/Bookcard";
 const { Header, Footer, Sider, Content } = Layout;
 
 export default class Store extends Component {
@@ -168,6 +169,19 @@ export default class Store extends Component {
 
           <Content className="content-store">
             <Row gutter={[30, 24]} type="flex" justify="center">
+              <Bookcard />
+              <Bookcard />
+              <Bookcard />
+              <Bookcard />
+              <Bookcard />
+              <Bookcard />
+              <Bookcard />
+              <Bookcard />
+              <Bookcard />
+            </Row>
+          </Content>
+          {/* <Content className="content-store">
+            <Row gutter={[30, 24]} type="flex" justify="center">
               <Col xs={20} sm={20} md={10} lg={10} xl={5}>
                 <Card hoverable className="card-book-store">
                   <Row
@@ -194,8 +208,7 @@ export default class Store extends Component {
                 </Card>
               </Col>
             </Row>
-          </Content>
-
+          </Content> */}
           <Footer>Footer</Footer>
         </Layout>
       </Layout>

@@ -38,7 +38,14 @@ function beforeUpload(file) {
   return isJpgOrPng && isLt2M;
 }
 export default class Addbook extends Component {
-  state = { visible: false, loading: false };
+  state = {
+    visible: false,
+    loading: false,
+    books: [],
+    book_name: "",
+    book_author: "",
+    typebook: ""
+  };
 
   handleChange = info => {
     if (info.file.status === "uploading") {
@@ -285,11 +292,11 @@ export default class Addbook extends Component {
                           .indexOf(input.toLowerCase()) >= 0
                       }
                     >
-                      <Option value="Fiction">Fiction</Option>
-                      <Option value="Business">Business</Option>
-                      <Option value="Education">Education</Option>
-                      <Option value="Diy">Diy</Option>
-                      <Option value="Magazine">Magazine</Option>
+                      <Option value="fiction">Fiction</Option>
+                      <Option value="business">Business</Option>
+                      <Option value="education">Education</Option>
+                      <Option value="diy">Diy</Option>
+                      <Option value="magazine">Magazine</Option>
                     </Select>
                   </Row>
 

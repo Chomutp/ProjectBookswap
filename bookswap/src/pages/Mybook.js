@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./Mybook.css";
 import { Link } from "react-router-dom";
+import Swaptable from "./component/Swaptable";
+import Shoppingcardtable from "./component/Shoppingcardtable";
 import {
   Layout,
   Row,
@@ -13,12 +15,10 @@ import {
   Divider,
   Upload,
   Modal,
-  Tabs,
   Typography
 } from "antd";
-const { Header, Footer, Content, Sider } = Layout;
+const { Header, Footer, Content } = Layout;
 const { TextArea } = Input;
-const { TabPane } = Tabs;
 const { Paragraph } = Typography;
 
 export default class Mybook extends Component {
@@ -46,25 +46,14 @@ export default class Mybook extends Component {
     ]
   };
 
-  showModal = () => {
-    this.setState({
-      visible: true
-    });
-  };
+  // swapModalRef = ({ handleShowModal }) => {
+  //   this.showModal = handleShowModal;
+  // };
 
-  handleOk = e => {
-    console.log(e);
-    this.setState({
-      visible: false
-    });
-  };
+  // onSwapClick = () => {
+  //   this.showModal = handleShowModal;
+  // };
 
-  handleCancel = e => {
-    console.log(e);
-    this.setState({
-      visible: false
-    });
-  };
   render() {
     return (
       <Layout>
@@ -76,44 +65,21 @@ export default class Mybook extends Component {
             </Link>
           </div>
           <div className="nav-button">
-            <Button
-              type="link"
-              ghost
-              className="navButtonColor"
-              onClick={this.showModal}
-            >
+            <Button type="link" ghost className="navButtonColor">
               <Icon type="shopping-cart" />
               Shopping Cart
             </Button>
-            <Modal
-              title="Basic Modal"
-              visible={this.state.visible}
-              onOk={this.handleOk}
-              onCancel={this.handleCancel}
-            >
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-            </Modal>
-
             <Button
               type="link"
               ghost
               className="navButtonColor"
-              onClick={this.showModal}
+              onClick={this.onSwapClick}
             >
               <Icon type="retweet" />
               Swap Book
             </Button>
-            <Modal
-              title="Basic Modal"
-              visible={this.state.visible}
-              onOk={this.handleOk}
-              onCancel={this.handleCancel}
-            >
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
+            <Modal>
+              <Swaptable />
             </Modal>
 
             <Link to="/store">
@@ -240,7 +206,7 @@ export default class Mybook extends Component {
           </Row>
         </Content>
 
-        <Footer>Footer</Footer>
+        <Footer>cccccc</Footer>
       </Layout>
     );
   }
