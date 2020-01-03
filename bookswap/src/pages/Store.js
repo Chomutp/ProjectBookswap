@@ -4,34 +4,37 @@ import Axios from "../config/axios.setup";
 import "./Store.css";
 import { Layout, Button, Icon, Row, Col, Card, Avatar, Modal } from "antd";
 import Bookcard from "./component/Bookcard";
+import Swaptable from "./component/Swaptable";
+import Shoppingcardtable from "./component/Shoppingcardtable";
 const { Header, Footer, Sider, Content } = Layout;
 
 export default class Store extends Component {
-  state = { visible: false, books: [], filterType: "all" };
+  state = {
+    visibleSwap: false,
+    visibleShopping: false,
+    books: [],
+    filterType: "all"
+  };
 
   componentDidMount = async () => {
     const { data: books } = await Axios.get("http://localhost:9999/books");
     this.setState({ books });
   };
 
-  showModal = () => {
-    this.setState({
-      visible: true
-    });
+  openSwapModal = () => {
+    this.setState({ visibleSwap: true });
   };
 
-  handleOk = e => {
-    console.log(e);
-    this.setState({
-      visible: false
-    });
+  closeSwapModal = () => {
+    this.setState({ visibleSwap: false });
   };
 
-  handleCancel = e => {
-    console.log(e);
-    this.setState({
-      visible: false
-    });
+  openShoppingModal = () => {
+    this.setState({ visibleShopping: true });
+  };
+
+  closeShoppingModal = () => {
+    this.setState({ visibleShopping: false });
   };
 
   filterBy = bookType => {
@@ -153,40 +156,30 @@ export default class Store extends Component {
                 ghost
                 onClick={this.showModal}
                 className="navButtonColor"
+                onClick={this.openShoppingModal}
               >
                 <Icon type="shopping-cart" />
                 Shopping Cart
               </Button>
-              <Modal
-                title="Basic Modal"
-                visible={this.state.visible}
-                onOk={this.handleOk}
-                onCancel={this.handleCancel}
-              >
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-              </Modal>
+              <Shoppingcardtable
+                visible={this.state.visibleShopping}
+                closeShoppingModal={this.closeShoppingModal}
+              />
 
               <Button
                 type="link"
                 ghost
                 onClick={this.showModal}
                 className="navButtonColor"
+                onClick={this.openSwapModal}
               >
                 <Icon type="retweet" />
                 Swap Book
               </Button>
-              <Modal
-                title="Basic Modal"
-                visible={this.state.visible}
-                onOk={this.handleOk}
-                onCancel={this.handleCancel}
-              >
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-              </Modal>
+              <Swaptable
+                visible={this.state.visibleSwap}
+                closeSwapModal={this.closeSwapModal}
+              />
 
               <Link to="/mybook">
                 <Button type="link" ghost className="navButtonColor">

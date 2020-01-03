@@ -8,6 +8,25 @@ module.exports = (app, db) => {
     });
   });
 
+  app.get(
+    "/mybooks",
+    passport.authenticate("jwt", { session: false }),
+    function(req, res) {
+      db.book
+        .findAll({
+          where: {
+            user_id: req.user.id
+          }
+        })
+        .then(result => {
+          res.status(200).json(result);
+        })
+        .catch(error => {
+          res.status(400).json("Not found your books");
+        });
+    }
+  );
+
   app.post(
     "/addbook",
     passport.authenticate("jwt", { session: false }),

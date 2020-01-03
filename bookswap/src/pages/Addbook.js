@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Addbook.css";
 import Axios from "../config/axios.setup";
+import Swaptable from "./component/Swaptable";
+import Shoppingcardtable from "./component/Shoppingcardtable";
 import {
   Layout,
   Row,
@@ -40,12 +42,19 @@ function beforeUpload(file) {
 }
 export default class Addbook extends Component {
   state = {
-    visible: false,
+    visibleSwap: false,
+    visibleShopping: false,
     loading: false,
     books: [],
+    image_book: "",
     book_name: "",
     book_author: "",
     typebook: ""
+  };
+
+  componentDidMount = async () => {
+    const { data: books } = await Axios.get("http://localhost:9999/addbook");
+    this.setState({ books });
   };
 
   handleChange = info => {
@@ -64,24 +73,48 @@ export default class Addbook extends Component {
     }
   };
 
-  showModal = () => {
-    this.setState({
-      visible: true
-    });
+  handleClickAddButton = () => {
+    let image = this.state.image_book;
+    let name = this.state.book_name;
+    let author = this.state.book_author;
+    let type = this.state.book_type;
+    if (image === "" || name === "" || author === "" || type === "") {
+      return alert("Please Fill Up This Form.");
+    } else {
+      Axios.post("http://localhost:9999/addbook", {
+        image,
+        name,
+        author,
+        type
+      }).then(result => {
+        console.log(result);
+        Axios.get("http://localhost:9999/mybooks").then(result =>
+          this.setState({
+            books: result.data,
+            image_book: "",
+            book_name: "",
+            book_author: "",
+            typebook: ""
+          })
+        );
+      });
+    }
   };
 
-  handleOk = e => {
-    console.log(e);
-    this.setState({
-      visible: false
-    });
+  openSwapModal = () => {
+    this.setState({ visibleSwap: true });
   };
 
-  handleCancel = e => {
-    console.log(e);
-    this.setState({
-      visible: false
-    });
+  closeSwapModal = () => {
+    this.setState({ visibleSwap: false });
+  };
+
+  openShoppingModal = () => {
+    this.setState({ visibleShopping: true });
+  };
+
+  closeShoppingModal = () => {
+    this.setState({ visibleShopping: false });
   };
 
   render() {
@@ -105,45 +138,33 @@ export default class Addbook extends Component {
             <Button
               type="link"
               ghost
-              className="navButColor"
-              onClick={this.showModal}
+              className="navButtonColor"
+              onClick={this.openShoppingModal}
             >
               <Icon type="shopping-cart" />
               Shopping Cart
             </Button>
-            <Modal
-              title="Basic Modal"
-              visible={this.state.visible}
-              onOk={this.handleOk}
-              onCancel={this.handleCancel}
-            >
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-            </Modal>
+            <Shoppingcardtable
+              visible={this.state.visibleShopping}
+              closeShoppingModal={this.closeShoppingModal}
+            />
 
             <Button
               type="link"
               ghost
-              className="navButColor"
-              onClick={this.showModal}
+              className="navButtonColor"
+              onClick={this.openSwapModal}
             >
               <Icon type="retweet" />
               Swap Book
             </Button>
-            <Modal
-              title="Basic Modal"
-              visible={this.state.visible}
-              onOk={this.handleOk}
-              onCancel={this.handleCancel}
-            >
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-            </Modal>
+            <Swaptable
+              visible={this.state.visibleSwap}
+              closeSwapModal={this.closeSwapModal}
+            />
 
             <Link to="/store">
-              <Button type="link" ghost className="navButColor">
+              <Button type="link" ghost className="navButtonColor">
                 <Icon type="shop" />
                 Store
               </Button>
@@ -251,11 +272,38 @@ export default class Addbook extends Component {
                     <Input
                       prefix={
                         <Icon
+                          type="picture"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
+                      }
+                      placeholder="image url"
+                      value={this.state.image_book}
+                      onChange={e => {
+                        console.log(e);
+                        this.setState({ image_book: e.target.value });
+                      }}
+                    />
+                  </Row>
+
+                  <Row
+                    type="flex"
+                    justify="center"
+                    align="middle"
+                    className="addbook-input"
+                  >
+                    <Input
+                      prefix={
+                        <Icon
                           type="book"
                           style={{ color: "rgba(0,0,0,.25)" }}
                         />
                       }
                       placeholder="Book Name"
+                      value={this.state.book_name}
+                      onChange={e => {
+                        console.log(e);
+                        this.setState({ book_name: e.target.value });
+                      }}
                     />
                   </Row>
 
@@ -273,6 +321,11 @@ export default class Addbook extends Component {
                         />
                       }
                       placeholder="Author"
+                      value={this.state.book_author}
+                      onChange={e => {
+                        console.log(e);
+                        this.setState({ book_author: e.target.value });
+                      }}
                     />
                   </Row>
 
@@ -282,7 +335,21 @@ export default class Addbook extends Component {
                     align="middle"
                     className="addbook-input"
                   >
-                    <Select
+                    <Input
+                      prefix={
+                        <Icon
+                          type="user"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
+                      }
+                      placeholder="Type of Book"
+                      value={this.state.typebook}
+                      onChange={e => {
+                        console.log(e);
+                        this.setState({ typebook: e.target.value });
+                      }}
+                    />
+                    {/* <Select
                       showSearch
                       style={{ width: 200 }}
                       placeholder="Select Type of Book"
@@ -298,7 +365,7 @@ export default class Addbook extends Component {
                       <Option value="education">Education</Option>
                       <Option value="diy">Diy</Option>
                       <Option value="magazine">Magazine</Option>
-                    </Select>
+                    </Select> */}
                   </Row>
 
                   <Row type="flex" justify="center" align="middle">
@@ -307,7 +374,12 @@ export default class Addbook extends Component {
                     </Link>
 
                     <Link to="/mybook">
-                      <Button className="addbook-button-add">ADD</Button>
+                      <Button
+                        className="addbook-button-add"
+                        onClick={() => this.handleClickAddButton}
+                      >
+                        ADD
+                      </Button>
                     </Link>
                   </Row>
                 </Col>

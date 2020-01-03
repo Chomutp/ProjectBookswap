@@ -43,7 +43,8 @@ const columnsSwapRequestFrom = [
   },
   {
     title: "Swap",
-    dataIndex: "swap"
+    dataIndex: "swap",
+    render: (text, record) => <Button type="primary">Select Book</Button>
   }
 ];
 const dataSwapRequestFrom = [
@@ -51,13 +52,13 @@ const dataSwapRequestFrom = [
     key: "1",
     book: "Book 1",
     namebook: "Book 1",
-    swap: "x"
+    swap: ""
   },
   {
     key: "2",
     book: "Book 2",
     namebook: "Book 2",
-    swap: "y"
+    swap: ""
   }
 ];
 

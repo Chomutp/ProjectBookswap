@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./Mybook.css";
 import { Link } from "react-router-dom";
-import Swaptable from "./component/Swaptable";
 import Axios from "../config/axios.setup";
+import Swaptable from "./component/Swaptable";
 import Shoppingcardtable from "./component/Shoppingcardtable";
 import {
   Layout,
@@ -26,26 +26,36 @@ export default class Mybook extends Component {
   state = {
     visibleSwap: false,
     visibleShopping: false,
-    userBook: [
-      {
-        id: 1,
-        image_book:
-          "http://www.znipertrade.com/wp-content/uploads/2016/11/Cover-E-book-2.png",
-        name_book: "คัมภีร์พิชิตตลาด Forex ด้วย Price Action"
-      },
-      {
-        id: 2,
-        image_book:
-          "https://www.asiabooks.com/media/catalog/product/cache/1/image/264x/17f82f742ffe127f42dca9de82fb58b1/9/7/9786167890753.png",
-        name_book: "คู่มือเทรด FOREX เข้าใจง่ายทำเงินได้จริง"
-      },
-      {
-        id: 3,
-        image_book:
-          "https://www.nopadolstory.com/wp-content/uploads/2019/11/The-Little-Book-of-Man-United.jpg",
-        name_book: "The Little Book of Man United"
+    books: []
+
+    // userBook: [
+    //   {
+    //     id: 1,
+    //     image_book:
+    //       "http://www.znipertrade.com/wp-content/uploads/2016/11/Cover-E-book-2.png",
+    //     name_book: "คัมภีร์พิชิตตลาด Forex ด้วย Price Action"
+    //   },
+    //   {
+    //     id: 2,
+    //     image_book:
+    //       "https://www.asiabooks.com/media/catalog/product/cache/1/image/264x/17f82f742ffe127f42dca9de82fb58b1/9/7/9786167890753.png",
+    //     name_book: "คู่มือเทรด FOREX เข้าใจง่ายทำเงินได้จริง"
+    //   },
+    //   {
+    //     id: 3,
+    //     image_book:
+    //       "https://www.nopadolstory.com/wp-content/uploads/2019/11/The-Little-Book-of-Man-United.jpg",
+    //     name_book: "The Little Book of Man United"
+    //   }
+    // ]
+  };
+  componentDidMount = async () => {
+    const { data: books } = await Axios.get("http://localhost:9999/mybooks", {
+      headers: {
+        Authorization: "Bearer " + localStorage.ACCESS_TOKEN
       }
-    ]
+    });
+    this.setState({ books });
   };
 
   openSwapModal = () => {
@@ -179,35 +189,33 @@ export default class Mybook extends Component {
               </Row>
 
               <Row gutter={[48, 48]} type="flex" justify="center">
-                {this.state.userBook.map(book => {
-                  return (
-                    <Col xs={20} sm={20} md={20} lg={10} xl={5}>
-                      <Card hoverable className="card-book-mybook">
-                        <Row
-                          type="flex"
-                          justify="center"
-                          className="content-card-mybook"
-                        >
-                          <Avatar
-                            shape="square"
-                            size={120}
-                            src={book.image_book}
-                          />
-                        </Row>
+                {this.state.books.map(book => (
+                  <Col xs={20} sm={20} md={20} lg={10} xl={5}>
+                    <Card hoverable className="card-book-mybook">
+                      <Row
+                        type="flex"
+                        justify="center"
+                        className="content-card-mybook"
+                      >
+                        <Avatar
+                          shape="square"
+                          size={120}
+                          src={book.image_book}
+                        />
+                      </Row>
 
-                        <Row>
-                          <Paragraph ellipsis>{book.name_book}</Paragraph>
-                        </Row>
+                      <Row>
+                        <Paragraph ellipsis>{book.name_book}</Paragraph>
+                      </Row>
 
-                        <Row type="flex" justify="space-around">
-                          <Button type="danger">
-                            <Icon type="delete" />
-                          </Button>
-                        </Row>
-                      </Card>
-                    </Col>
-                  );
-                })}
+                      <Row type="flex" justify="space-around">
+                        <Button type="danger">
+                          <Icon type="delete" />
+                        </Button>
+                      </Row>
+                    </Card>
+                  </Col>
+                ))}
 
                 <Col xs={20} sm={20} md={20} lg={10} xl={5}>
                   <Link to="/addbook">
