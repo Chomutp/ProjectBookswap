@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import "./Addbook.css";
 import Axios from "../config/axios.setup";
 import Swaptable from "./component/Swaptable";
+import LogOut from "./component/LogOut";
 import Shoppingcardtable from "./component/Shoppingcardtable";
 import {
   Layout,
@@ -12,10 +14,9 @@ import {
   Input,
   Icon,
   Button,
-  Card,
+  Form,
   Divider,
   Upload,
-  Modal,
   Select,
   message
 } from "antd";
@@ -40,21 +41,39 @@ function beforeUpload(file) {
   }
   return isJpgOrPng && isLt2M;
 }
-export default class Addbook extends Component {
+class Addbook extends Component {
   state = {
     visibleSwap: false,
     visibleShopping: false,
     loading: false,
+    isDirty: false,
     books: [],
     image_book: "",
-    book_name: "",
-    book_author: "",
-    typebook: ""
+    name_book: "",
+    typeBook: ""
   };
 
-  componentDidMount = async () => {
-    const { data: books } = await Axios.get("http://localhost:9999/addbook");
-    this.setState({ books });
+  handleSubmit = e => {
+    e.preventDefault();
+
+    this.props.form.validateFields((err, value) => {
+      if (!err) {
+        let payload = {
+          image_book: value.image_book,
+          name_book: value.name_book,
+
+          typeBook: value.typeBook
+        };
+
+        Axios.post("http://localhost:9999/addbook", payload)
+          .then(result => {
+            console.log(result.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    });
   };
 
   handleChange = info => {
@@ -63,41 +82,12 @@ export default class Addbook extends Component {
       return;
     }
     if (info.file.status === "done") {
-      // Get this url from response in real world.
       getBase64(info.file.originFileObj, imageUrl =>
         this.setState({
           imageUrl,
           loading: false
         })
       );
-    }
-  };
-
-  handleClickAddButton = () => {
-    let image = this.state.image_book;
-    let name = this.state.book_name;
-    let author = this.state.book_author;
-    let type = this.state.book_type;
-    if (image === "" || name === "" || author === "" || type === "") {
-      return alert("Please Fill Up This Form.");
-    } else {
-      Axios.post("http://localhost:9999/addbook", {
-        image,
-        name,
-        author,
-        type
-      }).then(result => {
-        console.log(result);
-        Axios.get("http://localhost:9999/mybooks").then(result =>
-          this.setState({
-            books: result.data,
-            image_book: "",
-            book_name: "",
-            book_author: "",
-            typebook: ""
-          })
-        );
-      });
     }
   };
 
@@ -125,6 +115,7 @@ export default class Addbook extends Component {
       </div>
     );
     const { imageUrl } = this.state;
+    const { getFieldDecorator } = this.props.form;
 
     return (
       <Layout>
@@ -227,7 +218,7 @@ export default class Addbook extends Component {
               </Row>
 
               <Row type="flex" justify="center">
-                <Button>EDIT</Button>
+                <LogOut />
               </Row>
             </Col>
 
@@ -269,118 +260,69 @@ export default class Addbook extends Component {
                     align="middle"
                     className="addbook-input"
                   >
-                    <Input
-                      prefix={
-                        <Icon
-                          type="picture"
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
-                      }
-                      placeholder="image url"
-                      value={this.state.image_book}
-                      onChange={e => {
-                        console.log(e);
-                        this.setState({ image_book: e.target.value });
-                      }}
-                    />
-                  </Row>
-
-                  <Row
-                    type="flex"
-                    justify="center"
-                    align="middle"
-                    className="addbook-input"
-                  >
-                    <Input
-                      prefix={
-                        <Icon
-                          type="book"
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
-                      }
-                      placeholder="Book Name"
-                      value={this.state.book_name}
-                      onChange={e => {
-                        console.log(e);
-                        this.setState({ book_name: e.target.value });
-                      }}
-                    />
-                  </Row>
-
-                  <Row
-                    type="flex"
-                    justify="center"
-                    align="middle"
-                    className="addbook-input"
-                  >
-                    <Input
-                      prefix={
-                        <Icon
-                          type="user"
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
-                      }
-                      placeholder="Author"
-                      value={this.state.book_author}
-                      onChange={e => {
-                        console.log(e);
-                        this.setState({ book_author: e.target.value });
-                      }}
-                    />
-                  </Row>
-
-                  <Row
-                    type="flex"
-                    justify="center"
-                    align="middle"
-                    className="addbook-input"
-                  >
-                    <Input
-                      prefix={
-                        <Icon
-                          type="user"
-                          style={{ color: "rgba(0,0,0,.25)" }}
-                        />
-                      }
-                      placeholder="Type of Book"
-                      value={this.state.typebook}
-                      onChange={e => {
-                        console.log(e);
-                        this.setState({ typebook: e.target.value });
-                      }}
-                    />
-                    {/* <Select
-                      showSearch
-                      style={{ width: 200 }}
-                      placeholder="Select Type of Book"
-                      optionFilterProp="children"
-                      filterOption={(input, option) =>
-                        option.props.children
-                          .toLowerCase()
-                          .indexOf(input.toLowerCase()) >= 0
-                      }
+                    <Form
+                      wrapperCol={{ span: 24 }}
+                      onSubmit={this.handleSubmit}
                     >
-                      <Option value="fiction">Fiction</Option>
-                      <Option value="business">Business</Option>
-                      <Option value="education">Education</Option>
-                      <Option value="diy">Diy</Option>
-                      <Option value="magazine">Magazine</Option>
-                    </Select> */}
-                  </Row>
+                      <Form.Item>
+                        {getFieldDecorator("image_book", {
+                          rules: [
+                            {
+                              required: true,
+                              message: "Please input your image url"
+                            }
+                          ]
+                        })(<Input placeholder="Image URL" />)}
+                      </Form.Item>
+                      <Form.Item>
+                        {getFieldDecorator("name_book", {
+                          rules: [
+                            {
+                              required: true,
+                              message: "Please input name of book"
+                            }
+                          ]
+                        })(<Input placeholder="Name's Book" />)}
+                      </Form.Item>
 
-                  <Row type="flex" justify="center" align="middle">
-                    <Link to="/mybook">
-                      <Button className="addbook-button-cancle">CANCLE</Button>
-                    </Link>
+                      <Form.Item>
+                        {getFieldDecorator("typeBook", {
+                          rules: [
+                            {
+                              required: true,
+                              message: "Please select type of book"
+                            }
+                          ]
+                        })(
+                          <Select
+                            placeholder="Select type of book"
+                            onChange={value =>
+                              this.setState({ typeBook: `${value}` })
+                            }
+                          >
+                            <Option value="fiction">Fiction</Option>
+                            <Option value="business">Business</Option>
+                            <Option value="education">Education</Option>
+                            <Option value="diy">Diy</Option>
+                            <Option value="magazine">Magazine</Option>
+                          </Select>
+                        )}
+                      </Form.Item>
+                      <Form.Item wrapperCol={{ span: 24 }}>
+                        <Link to="/mybook">
+                          <Button className="addbook-button-cancle">
+                            CANCLE
+                          </Button>
+                        </Link>
 
-                    <Link to="/mybook">
-                      <Button
-                        className="addbook-button-add"
-                        onClick={() => this.handleClickAddButton}
-                      >
-                        ADD
-                      </Button>
-                    </Link>
+                        <Button
+                          className="addbook-button-add"
+                          htmlType="submit"
+                        >
+                          ADD
+                        </Button>
+                      </Form.Item>
+                    </Form>
                   </Row>
                 </Col>
               </Row>
@@ -393,3 +335,5 @@ export default class Addbook extends Component {
     );
   }
 }
+
+export default Form.create()(Addbook);

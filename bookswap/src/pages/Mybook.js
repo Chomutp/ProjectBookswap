@@ -3,6 +3,7 @@ import "./Mybook.css";
 import { Link } from "react-router-dom";
 import Axios from "../config/axios.setup";
 import Swaptable from "./component/Swaptable";
+import LogOut from "./component/LogOut";
 import Shoppingcardtable from "./component/Shoppingcardtable";
 import {
   Layout,
@@ -27,34 +28,16 @@ export default class Mybook extends Component {
     visibleSwap: false,
     visibleShopping: false,
     books: []
-
-    // userBook: [
-    //   {
-    //     id: 1,
-    //     image_book:
-    //       "http://www.znipertrade.com/wp-content/uploads/2016/11/Cover-E-book-2.png",
-    //     name_book: "คัมภีร์พิชิตตลาด Forex ด้วย Price Action"
-    //   },
-    //   {
-    //     id: 2,
-    //     image_book:
-    //       "https://www.asiabooks.com/media/catalog/product/cache/1/image/264x/17f82f742ffe127f42dca9de82fb58b1/9/7/9786167890753.png",
-    //     name_book: "คู่มือเทรด FOREX เข้าใจง่ายทำเงินได้จริง"
-    //   },
-    //   {
-    //     id: 3,
-    //     image_book:
-    //       "https://www.nopadolstory.com/wp-content/uploads/2019/11/The-Little-Book-of-Man-United.jpg",
-    //     name_book: "The Little Book of Man United"
-    //   }
-    // ]
   };
   componentDidMount = async () => {
-    const { data: books } = await Axios.get("http://localhost:9999/mybooks", {
-      headers: {
-        Authorization: "Bearer " + localStorage.ACCESS_TOKEN
-      }
-    });
+    const { data: books } = await Axios.get(
+      "/mybooks"
+      // , {
+      //   headers: {
+      //     Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+      //   }
+      // }
+    );
     this.setState({ books });
   };
 
@@ -177,7 +160,7 @@ export default class Mybook extends Component {
               </Row>
 
               <Row type="flex" justify="center">
-                <Button>EDIT</Button>
+                <LogOut />
               </Row>
             </Col>
 

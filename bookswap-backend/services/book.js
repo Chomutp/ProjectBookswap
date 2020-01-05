@@ -29,14 +29,14 @@ module.exports = (app, db) => {
 
   app.post(
     "/addbook",
-    passport.authenticate("jwt", { session: false }),
+    // passport.authenticate("jwt", { session: false }),
     function(req, res) {
       db.book
         .create({
           image_book: req.body.image_book,
           name_book: req.body.name_book,
-          typeBook: req.body.typeBook,
-          user_id: req.user.id
+          typeBook: req.body.typeBook
+          // user_id: req.user.id
         })
         .then(result => {
           res.status(200).json(result);
@@ -53,7 +53,7 @@ module.exports = (app, db) => {
     passport.authenticate("jwt", { session: false }),
     async function(req, res) {
       db.book
-        .destroy({ where: { id: req.params.id } })
+        .destroy({ where: { id: req.params.id, user_id: req.user.id } })
         .then(result => {
           res.status(200).json("delete book id : " + " " + req.params.id);
         })

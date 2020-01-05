@@ -4,7 +4,7 @@ import React from "react";
 const successLoginNotification = () => {
   notification.open({
     message: "Login Successful",
-    description: "Enjoy with Fakebook",
+    description: "Enjoy with Bookswap",
     icon: <Icon type="check" style={{ color: "#54b600" }} />
   });
 };
