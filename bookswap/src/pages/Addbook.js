@@ -6,6 +6,7 @@ import Axios from "../config/axios.setup";
 import Swaptable from "./component/Swaptable";
 import LogOut from "./component/LogOut";
 import Shoppingcardtable from "./component/Shoppingcardtable";
+import jwtDecode from "jwt-decode";
 import {
   Layout,
   Row,
@@ -54,6 +55,9 @@ class Addbook extends Component {
   };
 
   handleSubmit = e => {
+    const token = localStorage.getItem("ACCESS_TOKEN");
+    const user = jwtDecode(token);
+    console.log("user", user);
     e.preventDefault();
 
     this.props.form.validateFields((err, value) => {
@@ -61,11 +65,15 @@ class Addbook extends Component {
         let payload = {
           image_book: value.image_book,
           name_book: value.name_book,
-
-          typeBook: value.typeBook
+          typeBook: value.typeBook,
+          user_id: user.id
         };
 
-        Axios.post("http://localhost:9999/addbook", payload)
+        Axios.post("/addbook", payload, {
+          headers: {
+            Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+          }
+        })
           .then(result => {
             console.log(result.data);
           })
@@ -254,12 +262,7 @@ class Addbook extends Component {
                     </Upload>
                   </Row>
 
-                  <Row
-                    type="flex"
-                    justify="center"
-                    align="middle"
-                    className="addbook-input"
-                  >
+                  <Row type="flex" justify="center" className="addbook-input">
                     <Form
                       wrapperCol={{ span: 24 }}
                       onSubmit={this.handleSubmit}
@@ -272,7 +275,7 @@ class Addbook extends Component {
                               message: "Please input your image url"
                             }
                           ]
-                        })(<Input placeholder="Image URL" />)}
+                        })(<Input placeholder="Image Book" />)}
                       </Form.Item>
                       <Form.Item>
                         {getFieldDecorator("name_book", {

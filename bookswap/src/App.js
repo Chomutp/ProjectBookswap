@@ -1,17 +1,32 @@
 import React from "react";
 import "./App.css";
 import { Switch } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 import PrivateRoutes from "./routes/PrivateRoutes";
 
-function App() {
-  return (
-    <div>
-      <Switch>
-        <PrivateRoutes role={"user"} />
-      </Switch>
-    </div>
-  );
+class App extends React.Component {
+  getUser = () => {
+    let token = localStorage.getItem("ACCESS_TOKEN");
+    if (token) {
+      return jwtDecode(token);
+    } else {
+      return {
+        role: "guest"
+      };
+    }
+  };
+
+  render() {
+    let user = this.getUser();
+    return (
+      <div>
+        <Switch>
+          <PrivateRoutes role={user.role} />
+        </Switch>
+      </div>
+    );
+  }
 }
 
 export default App;

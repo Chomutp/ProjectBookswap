@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./models");
 const userService = require("./services/user");
+
 // const postService = require("./services/post");
 const cors = require("cors");
 
@@ -11,9 +12,18 @@ const app = express();
 const passport = require("passport");
 const bookService = require("./services/book");
 const swapService = require("./services/swap");
+const fileUpload = require("express-fileupload");
+const _ = require("lodash");
 
 // use the strategy
 app.use(passport.initialize());
+
+app.use(
+  fileUpload({
+    createParentPath: true
+  })
+);
+
 app.use(cors());
 // parse application/json
 app.use(bodyParser.json());

@@ -30,14 +30,11 @@ export default class Mybook extends Component {
     books: []
   };
   componentDidMount = async () => {
-    const { data: books } = await Axios.get(
-      "/mybooks"
-      // , {
-      //   headers: {
-      //     Authorization: "Bearer " + localStorage.ACCESS_TOKEN
-      //   }
-      // }
-    );
+    const { data: books } = await Axios.get("/mybooks", {
+      headers: {
+        Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+      }
+    });
     this.setState({ books });
   };
 

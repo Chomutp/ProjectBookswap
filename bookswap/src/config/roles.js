@@ -32,6 +32,7 @@ export default {
   user: {
     routes: [
       components.login,
+      components.register,
       components.mybook,
       components.addbook,
       components.store
