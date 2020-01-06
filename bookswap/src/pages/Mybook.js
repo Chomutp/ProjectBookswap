@@ -5,6 +5,7 @@ import Axios from "../config/axios.setup";
 import Swaptable from "./component/Swaptable";
 import LogOut from "./component/LogOut";
 import Shoppingcardtable from "./component/Shoppingcardtable";
+import { withRouter } from "react-router-dom";
 import {
   Layout,
   Row,
@@ -22,14 +23,15 @@ import {
 const { Header, Footer, Content } = Layout;
 const { Paragraph, Text } = Typography;
 
-export default class Mybook extends Component {
+class Mybook extends Component {
   state = {
     visibleSwap: false,
     visibleShopping: false,
     books: [],
     currentUser: []
   };
-  componentDidMount = async () => {
+
+  fetchData = async () => {
     const { data: books } = await Axios.get(
       "/mybooks",
 
@@ -53,6 +55,29 @@ export default class Mybook extends Component {
     this.setState({ currentUser });
     console.log(books);
     console.log(currentUser);
+  };
+
+  componentDidMount = () => {
+    this.fetchData();
+  };
+
+  handleDeleteMybook = id => {
+    console.log("book's id", id);
+    Axios.delete(
+      `/addbook/${id}`,
+
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+        }
+      }
+    )
+      .then(result => {
+        this.fetchData();
+        console.log(`delete book's id : ${id}`);
+      })
+
+      .catch(err => console.log(err));
   };
 
   openSwapModal = () => {
@@ -132,7 +157,7 @@ export default class Mybook extends Component {
                 </Row>
 
                 <Row type="flex" justify="center">
-                  <Icon type="user" /> 
+                  <Icon type="user" />
                 </Row>
 
                 <Row
@@ -200,7 +225,10 @@ export default class Mybook extends Component {
                       </Row>
 
                       <Row type="flex" justify="space-around">
-                        <Button type="danger">
+                        <Button
+                          type="danger"
+                          onClick={() => this.handleDeleteMybook(book.id)}
+                        >
                           <Icon type="delete" />
                         </Button>
                       </Row>
@@ -231,3 +259,5 @@ export default class Mybook extends Component {
     );
   }
 }
+
+export default withRouter(Mybook);

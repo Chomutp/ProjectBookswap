@@ -1,14 +1,22 @@
 import React, { Component } from "react";
 import { Button } from "antd";
-export default class LogOut extends Component {
+import { withRouter } from "react-router-dom";
+class LogOut extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   handleLogout = () => {
     localStorage.removeItem("ACCESS_TOKEN");
+    this.props.history.push("/login");
   };
   render() {
     return (
       <div>
-        <Button onClick={() => this.handleLogout()}>Log Out</Button>
+        <Button onClick={this.handleLogout}>Log Out</Button>
       </div>
     );
   }
 }
+
+export default withRouter(LogOut);

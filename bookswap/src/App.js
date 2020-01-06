@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Switch } from "react-router-dom";
+import { Switch, withRouter } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
 import PrivateRoutes from "./routes/PrivateRoutes";
@@ -29,4 +29,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);
