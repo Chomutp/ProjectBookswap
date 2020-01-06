@@ -27,6 +27,7 @@ export default class Login extends Component {
         successLoginNotification();
         localStorage.setItem("ACCESS_TOKEN", result.data.token);
         this.props.history.push("/mybook");
+        window.location.reload(true);
       })
       .catch(err => {
         console.error(err);

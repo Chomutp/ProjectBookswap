@@ -26,15 +26,33 @@ export default class Mybook extends Component {
   state = {
     visibleSwap: false,
     visibleShopping: false,
-    books: []
+    books: [],
+    currentUser: []
   };
   componentDidMount = async () => {
-    const { data: books } = await Axios.get("/mybooks", {
-      headers: {
-        Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+    const { data: books } = await Axios.get(
+      "/mybooks",
+
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+        }
       }
-    });
+    );
     this.setState({ books });
+
+    const { data: currentUser } = await Axios.get(
+      "/detailUser",
+
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+        }
+      }
+    );
+    this.setState({ currentUser });
+    console.log(books);
+    console.log(currentUser);
   };
 
   openSwapModal = () => {
@@ -103,39 +121,56 @@ export default class Mybook extends Component {
 
         <Content className="c">
           <Row type="flex" justify="space-between" className="content">
-            <Col span={6} className="user-profile">
-              <Row type="flex" justify="center" className="user-upload-mybook">
-                <Avatar className="profile-pic-user" size={200} icon="user" />
-              </Row>
+            {this.state.currentUser.map(detail => (
+              <Col span={6} className="user-profile">
+                <Row
+                  type="flex"
+                  justify="center"
+                  className="user-upload-mybook"
+                >
+                  <Avatar className="profile-pic-user" size={200} icon="user" />
+                </Row>
 
-              <Row
-                className="input-profile-mybook"
-                type="flex"
-                justify="center"
-              >
-                <Text code>CCCCCCCC</Text>
-              </Row>
+                <Row type="flex" justify="center">
+                  <Icon type="user" /> 
+                </Row>
 
-              <Row
-                className="input-profile-mybook"
-                type="flex"
-                justify="center"
-              >
-                <Text code>Xxxxxx</Text>
-              </Row>
+                <Row
+                  className="input-profile-mybook"
+                  type="flex"
+                  justify="center"
+                >
+                  <Text code>{detail.name}</Text>
+                </Row>
 
-              <Row
-                className="input-profile-mybook"
-                type="flex"
-                justify="center"
-              >
-                <Text code>Zzzzzzzz</Text>
-              </Row>
+                <Row type="flex" justify="center">
+                  <Icon type="phone" />
+                </Row>
 
-              <Row type="flex" justify="center">
-                <LogOut />
-              </Row>
-            </Col>
+                <Row
+                  className="input-profile-mybook"
+                  type="flex"
+                  justify="center"
+                >
+                  <Text code>{detail.contact}</Text>
+                </Row>
+
+                <Row type="flex" justify="center">
+                  <Icon type="home" />
+                </Row>
+                <Row
+                  className="input-profile-mybook"
+                  type="flex"
+                  justify="center"
+                >
+                  <Text code>{detail.address}</Text>
+                </Row>
+
+                <Row type="flex" justify="center">
+                  <LogOut />
+                </Row>
+              </Col>
+            ))}
 
             <Col span={17} className="user-mybook">
               <Row>

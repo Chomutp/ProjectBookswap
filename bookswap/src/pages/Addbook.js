@@ -19,11 +19,13 @@ import {
   Divider,
   Upload,
   Select,
-  message
+  message,
+  Typography
 } from "antd";
 const { Header, Footer, Content, Sider } = Layout;
 const { TextArea } = Input;
 const { Option } = Select;
+const { Paragraph, Text } = Typography;
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -47,7 +49,22 @@ class Addbook extends Component {
     visibleSwap: false,
     visibleShopping: false,
     loading: false,
-    books: []
+    books: [],
+    currentUser: []
+  };
+
+  componentDidMount = async () => {
+    const { data: currentUser } = await Axios.get(
+      "/detailUser",
+
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+        }
+      }
+    );
+    this.setState({ currentUser });
+    console.log(currentUser);
   };
 
   handleSubmit = e => {
@@ -170,62 +187,56 @@ class Addbook extends Component {
 
         <Content>
           <Row type="flex" justify="space-between" className="content">
-            <Col span={6} className="user-profile">
-              <Row type="flex" justify="center" className="user-upload-mybook">
-                <Avatar
-                  className="profile-pic-user"
-                  size={200}
-                  src="https://fbi.dek-d.com/27/0282/2288/117545919"
-                />
-                {/* <Upload>
-                  <Avatar size={200} icon="picture" />
-                </Upload> */}
-              </Row>
+            {this.state.currentUser.map(detail => (
+              <Col span={6} className="user-profile">
+                <Row
+                  type="flex"
+                  justify="center"
+                  className="user-upload-mybook"
+                >
+                  <Avatar className="profile-pic-user" size={200} icon="user" />
+                </Row>
 
-              <Row
-                className="input-profile-mybook"
-                type="flex"
-                justify="center"
-              >
-                <Input
-                  className="input-profile-mybook-input"
-                  prefix={
-                    <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                  }
-                  placeholder="Username"
-                />
-              </Row>
+                <Row type="flex" justify="center">
+                  <Icon type="user" />
+                </Row>
 
-              <Row
-                className="input-profile-mybook"
-                type="flex"
-                justify="center"
-              >
-                <Input
-                  className="input-profile-mybook-input"
-                  prefix={
-                    <Icon type="phone" style={{ color: "rgba(0,0,0,.25)" }} />
-                  }
-                  placeholder="Contact"
-                />
-              </Row>
+                <Row
+                  className="input-profile-mybook"
+                  type="flex"
+                  justify="center"
+                >
+                  <Text code>{detail.name}</Text>
+                </Row>
 
-              <Row
-                className="input-profile-mybook"
-                type="flex"
-                justify="center"
-              >
-                <TextArea
-                  className="input-profile-mybook-input"
-                  rows={4}
-                  placeholder="Address"
-                />
-              </Row>
+                <Row type="flex" justify="center">
+                  <Icon type="phone" />
+                </Row>
 
-              <Row type="flex" justify="center">
-                <LogOut />
-              </Row>
-            </Col>
+                <Row
+                  className="input-profile-mybook"
+                  type="flex"
+                  justify="center"
+                >
+                  <Text code>{detail.contact}</Text>
+                </Row>
+
+                <Row type="flex" justify="center">
+                  <Icon type="home" />
+                </Row>
+                <Row
+                  className="input-profile-mybook"
+                  type="flex"
+                  justify="center"
+                >
+                  <Text code>{detail.address}</Text>
+                </Row>
+
+                <Row type="flex" justify="center">
+                  <LogOut />
+                </Row>
+              </Col>
+            ))}
 
             <Col span={17} className="user-mybook-addbook">
               <Row>
