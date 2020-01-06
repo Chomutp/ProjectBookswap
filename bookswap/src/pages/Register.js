@@ -1,11 +1,38 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
-import { Row, Col, Icon, Button, Input } from "antd";
-const { TextArea } = Input;
+import Axios from "../config/axios.setup";
+import { Row, Col, Icon, Button, Input, Form } from "antd";
 
-export default class Register extends Component {
+class Register extends Component {
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, value) => {
+      if (!err) {
+        Axios.post("/register", {
+          username: value.username,
+          password: value.password,
+          name: value.name,
+          contact: value.contact,
+          address: value.address
+        })
+          .then(result => {
+            console.log(result);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+        this.props.form.resetFields();
+      }
+    });
+  };
+
+  handleSelectChange = value => {
+    console.log(value);
+  };
+
   render() {
+    const { getFieldDecorator } = this.props.form;
     return (
       <div>
         <Row className="tap-top-bottom"></Row>
@@ -37,63 +64,124 @@ export default class Register extends Component {
             </Row>
 
             <Row className="input-register">
-              <Input
-                prefix={
-                  <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
-                placeholder="Username"
-              />
-            </Row>
+              <Form wrapperCol={{ span: 24 }} onSubmit={this.handleSubmit}>
+                <Form.Item>
+                  {getFieldDecorator("name", {
+                    rules: [
+                      { required: true, message: "Please input your name" }
+                    ]
+                  })(
+                    <Input
+                      placeholder="Name"
+                      prefix={
+                        <Icon
+                          type="edit"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
+                      }
+                    />
+                  )}
+                </Form.Item>
 
-            <Row className="input-register">
-              <Input
-                prefix={
-                  <Icon type="edit" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
-                placeholder="Name"
-              />
-            </Row>
+                <Form.Item>
+                  {getFieldDecorator("username", {
+                    rules: [
+                      { required: true, message: "Please input your username" }
+                    ]
+                  })(
+                    <Input
+                      placeholder="Username"
+                      prefix={
+                        <Icon
+                          type="user"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
+                      }
+                    />
+                  )}
+                </Form.Item>
 
-            <Row className="input-register">
-              <Input
-                prefix={
-                  <Icon type="phone" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
-                placeholder="Contact"
-              />
-            </Row>
+                <Form.Item>
+                  {getFieldDecorator("contact", {
+                    rules: [{ required: true, message: "Please input contact" }]
+                  })(
+                    <Input
+                      placeholder="Contact"
+                      prefix={
+                        <Icon
+                          type="phone"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
+                      }
+                    />
+                  )}
+                </Form.Item>
 
-            <Row className="input-register">
-              <TextArea
-                placeholder="Address"
-                autoSize={{ minRows: 3, maxRows: 5 }}
-              />
-            </Row>
+                <Form.Item>
+                  {getFieldDecorator("address", {
+                    rules: [
+                      { required: true, message: "Please input your address" }
+                    ]
+                  })(
+                    <Input
+                      placeholder="Address"
+                      prefix={
+                        <Icon
+                          type="home"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
+                      }
+                    />
+                  )}
+                </Form.Item>
 
-            <Row className="input-register">
-              <Input
-                prefix={
-                  <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
-                type="password"
-                placeholder="Password"
-              />
-            </Row>
+                <Form.Item>
+                  {getFieldDecorator("password", {
+                    rules: [
+                      { required: true, message: "Please input your password" }
+                    ]
+                  })(
+                    <Input
+                      placeholder="Password"
+                      type="password"
+                      prefix={
+                        <Icon
+                          type="lock"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
+                      }
+                    />
+                  )}
+                </Form.Item>
 
-            <Row className="input-register">
-              <Input
-                prefix={
-                  <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
-                }
-                type="password"
-                placeholder="Confirm Password"
-              />
-            </Row>
+                <Form.Item>
+                  {getFieldDecorator("confirm", {
+                    rules: [
+                      {
+                        required: true,
+                        message: "Please input your password again"
+                      }
+                    ]
+                  })(
+                    <Input
+                      placeholder="Confirm password"
+                      type="password"
+                      prefix={
+                        <Icon
+                          type="lock"
+                          style={{ color: "rgba(0,0,0,.25)" }}
+                        />
+                      }
+                    />
+                  )}
+                </Form.Item>
 
-            <Row>
-              <Link to="/mybook">
-                <Button className="button-register">REGISTER</Button>
-              </Link>
+                <Form.Item wrapperCol={{ span: 12, offset: 5 }}>
+                  <Button className="button-register" htmlType="submit">
+                    REGISTER
+                  </Button>
+                </Form.Item>
+              </Form>
             </Row>
 
             <Row>
@@ -109,3 +197,5 @@ export default class Register extends Component {
     );
   }
 }
+
+export default Form.create()(Register);

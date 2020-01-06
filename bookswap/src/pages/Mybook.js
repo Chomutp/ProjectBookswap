@@ -20,8 +20,7 @@ import {
   Typography
 } from "antd";
 const { Header, Footer, Content } = Layout;
-const { TextArea } = Input;
-const { Paragraph } = Typography;
+const { Paragraph, Text } = Typography;
 
 export default class Mybook extends Component {
   state = {
@@ -102,18 +101,11 @@ export default class Mybook extends Component {
           </div>
         </Header>
 
-        <Content>
+        <Content className="c">
           <Row type="flex" justify="space-between" className="content">
             <Col span={6} className="user-profile">
               <Row type="flex" justify="center" className="user-upload-mybook">
-                <Avatar
-                  className="profile-pic-user"
-                  size={200}
-                  src="https://fbi.dek-d.com/27/0282/2288/117545919"
-                />
-                {/* <Upload>
-                  <Avatar size={200} icon="picture" />
-                </Upload> */}
+                <Avatar className="profile-pic-user" size={200} icon="user" />
               </Row>
 
               <Row
@@ -121,13 +113,7 @@ export default class Mybook extends Component {
                 type="flex"
                 justify="center"
               >
-                <Input
-                  className="input-profile-mybook-input"
-                  prefix={
-                    <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
-                  }
-                  placeholder="Username"
-                />
+                <Text code>CCCCCCCC</Text>
               </Row>
 
               <Row
@@ -135,13 +121,7 @@ export default class Mybook extends Component {
                 type="flex"
                 justify="center"
               >
-                <Input
-                  className="input-profile-mybook-input"
-                  prefix={
-                    <Icon type="phone" style={{ color: "rgba(0,0,0,.25)" }} />
-                  }
-                  placeholder="Contact"
-                />
+                <Text code>Xxxxxx</Text>
               </Row>
 
               <Row
@@ -149,11 +129,7 @@ export default class Mybook extends Component {
                 type="flex"
                 justify="center"
               >
-                <TextArea
-                  className="input-profile-mybook-input"
-                  rows={4}
-                  placeholder="Address"
-                />
+                <Text code>Zzzzzzzz</Text>
               </Row>
 
               <Row type="flex" justify="center">

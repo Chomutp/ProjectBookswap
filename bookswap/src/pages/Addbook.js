@@ -47,11 +47,7 @@ class Addbook extends Component {
     visibleSwap: false,
     visibleShopping: false,
     loading: false,
-    isDirty: false,
-    books: [],
-    image_book: "",
-    name_book: "",
-    typeBook: ""
+    books: []
   };
 
   handleSubmit = e => {
@@ -80,6 +76,7 @@ class Addbook extends Component {
           .catch(err => {
             console.log(err);
           });
+        this.props.form.resetFields();
       }
     });
   };
