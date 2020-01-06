@@ -7,6 +7,7 @@ import Swaptable from "./component/Swaptable";
 import LogOut from "./component/LogOut";
 import Shoppingcardtable from "./component/Shoppingcardtable";
 import jwtDecode from "jwt-decode";
+import { withRouter } from "react-router-dom";
 import {
   Layout,
   Row,
@@ -89,6 +90,7 @@ class Addbook extends Component {
         })
           .then(result => {
             console.log(result.data);
+            this.props.history.push("/mybook");
           })
           .catch(err => {
             console.log(err);
@@ -347,4 +349,4 @@ class Addbook extends Component {
   }
 }
 
-export default Form.create()(Addbook);
+export default Form.create()(withRouter(Addbook));
