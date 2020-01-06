@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
 import Axios from "../config/axios.setup";
+import { withRouter } from "react-router-dom";
 import { Row, Col, Icon, Button, Input, Form } from "antd";
 
 class Register extends Component {
@@ -18,6 +19,7 @@ class Register extends Component {
         })
           .then(result => {
             console.log(result);
+            this.props.history.push("/login");
           })
           .catch(err => {
             console.error(err);
@@ -63,7 +65,7 @@ class Register extends Component {
               </span>
             </Row>
 
-            <Row className="input-register">
+            <Row>
               <Form wrapperCol={{ span: 24 }} onSubmit={this.handleSubmit}>
                 <Form.Item>
                   {getFieldDecorator("name", {
@@ -106,7 +108,7 @@ class Register extends Component {
                     rules: [{ required: true, message: "Please input contact" }]
                   })(
                     <Input
-                      placeholder="Contact"
+                      placeholder="Contact : e.g. 0987654321"
                       prefix={
                         <Icon
                           type="phone"
@@ -198,4 +200,4 @@ class Register extends Component {
   }
 }
 
-export default Form.create()(Register);
+export default Form.create()(withRouter(Register));

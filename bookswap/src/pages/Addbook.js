@@ -220,7 +220,7 @@ class Addbook extends Component {
                   type="flex"
                   justify="center"
                 >
-                  <Text code>{detail.contact}</Text>
+                  <Text code>+66</Text> : <Text code>{detail.contact}</Text>
                 </Row>
 
                 <Row type="flex" justify="center">

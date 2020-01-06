@@ -13,7 +13,9 @@ class LogOut extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.handleLogout}>Log Out</Button>
+        <Button type="danger" onClick={this.handleLogout}>
+          Log Out
+        </Button>
       </div>
     );
   }

@@ -37,7 +37,7 @@ export default {
       components.addbook,
       components.store
     ],
-    redirect: ["/mybook"]
+    redirect: ["/store"]
   },
   guest: {
     routes: [

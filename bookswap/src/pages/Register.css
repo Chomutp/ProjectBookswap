@@ -11,12 +11,8 @@
 .text-register {
   font-size: 30px;
   font-weight: bold;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
   font-family: "Abel";
-}
-
-.input-register {
-  margin-bottom: 20px;
 }
 
 .button-register {
