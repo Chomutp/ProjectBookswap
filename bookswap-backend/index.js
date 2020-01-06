@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // import config of passport
 require("./config/passport/passport");
 
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync({ alter: false }).then(() => {
   userService(app, db);
   bookService(app, db);
   swapService(app, db);

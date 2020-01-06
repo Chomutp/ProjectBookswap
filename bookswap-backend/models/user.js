@@ -8,6 +8,15 @@ module.exports = (sequelize, DataType) => {
     },
     role: {
       type: DataType.ENUM("admin", "user")
+    },
+    name: {
+      type: DataType.STRING(255)
+    },
+    contact: {
+      type: DataType.INTEGER
+    },
+    address: {
+      type: DataType.STRING(500)
     }
   });
 
