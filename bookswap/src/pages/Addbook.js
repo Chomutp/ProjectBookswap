@@ -150,7 +150,7 @@ class Addbook extends Component {
             </Link>
           </div>
           <div className="nav-button">
-            <Button
+            {/* <Button
               type="link"
               ghost
               className="navButtonColor"
@@ -162,7 +162,7 @@ class Addbook extends Component {
             <Shoppingcardtable
               visible={this.state.visibleShopping}
               closeShoppingModal={this.closeShoppingModal}
-            />
+            /> */}
 
             <Button
               type="link"
@@ -196,7 +196,12 @@ class Addbook extends Component {
                   justify="center"
                   className="user-upload-mybook"
                 >
-                  <Avatar className="profile-pic-user" size={200} icon="user" />
+                  <Avatar
+                    className="profile-pic-user"
+                    size={150}
+                    icon="user"
+                    style={{ backgroundColor: "#454f69" }}
+                  />
                 </Row>
 
                 <Row type="flex" justify="center">
@@ -208,7 +213,9 @@ class Addbook extends Component {
                   type="flex"
                   justify="center"
                 >
-                  <Text code>{detail.name}</Text>
+                  <Text code className="detail-user">
+                    {detail.name}
+                  </Text>
                 </Row>
 
                 <Row type="flex" justify="center">
@@ -220,7 +227,13 @@ class Addbook extends Component {
                   type="flex"
                   justify="center"
                 >
-                  <Text code>+66</Text> : <Text code>{detail.contact}</Text>
+                  <Text code className="detail-user">
+                    +66
+                  </Text>{" "}
+                  :{" "}
+                  <Text code className="detail-user">
+                    {detail.contact}
+                  </Text>
                 </Row>
 
                 <Row type="flex" justify="center">
@@ -231,7 +244,9 @@ class Addbook extends Component {
                   type="flex"
                   justify="center"
                 >
-                  <Text code>{detail.address}</Text>
+                  <Text code className="detail-user">
+                    {detail.address}
+                  </Text>
                 </Row>
 
                 <Row type="flex" justify="center">
@@ -249,7 +264,7 @@ class Addbook extends Component {
 
               <Row type="flex" justify="center" className="border-row-addbook">
                 <Col span={16} className="border-col-addbook">
-                  <Row type="flex" justify="center">
+                  {/* <Row type="flex" justify="center">
                     <Upload
                       name="avatar"
                       listType="picture-card"
@@ -270,6 +285,12 @@ class Addbook extends Component {
                         uploadButton
                       )}
                     </Upload>
+                  </Row> */}
+                  <Row type="flex" justify="center" className="addbook-pic">
+                    <Avatar
+                      src="https://freeiconshop.com/wp-content/uploads/edd/book-open-flat.png"
+                      size={150}
+                    />
                   </Row>
 
                   <Row type="flex" justify="center" className="addbook-input">

@@ -13,5 +13,20 @@ module.exports = (sequelize, DataType) => {
       type: DataType.INTEGER
     }
   });
+
+  book.associate = models => {
+    book.belongsToMany(book, {
+      as: "request_to",
+      foreignKey: "request_to_book_id",
+      through: models.swap
+    });
+    book.belongsToMany(book, {
+      as: "request_from",
+      foreignKey: "request_from_book_id",
+      through: models.swap
+    });
+    // book.hasMany(models.swap);
+  };
+
   return book;
 };

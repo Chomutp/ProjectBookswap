@@ -26,7 +26,7 @@ const { Paragraph, Text } = Typography;
 class Mybook extends Component {
   state = {
     visibleSwap: false,
-    visibleShopping: false,
+
     books: [],
     currentUser: []
   };
@@ -88,14 +88,6 @@ class Mybook extends Component {
     this.setState({ visibleSwap: false });
   };
 
-  openShoppingModal = () => {
-    this.setState({ visibleShopping: true });
-  };
-
-  closeShoppingModal = () => {
-    this.setState({ visibleShopping: false });
-  };
-
   render() {
     return (
       <Layout>
@@ -107,20 +99,6 @@ class Mybook extends Component {
             </Link>
           </div>
           <div className="nav-button">
-            <Button
-              type="link"
-              ghost
-              className="navButtonColor"
-              onClick={this.openShoppingModal}
-            >
-              <Icon type="shopping-cart" />
-              Shopping Cart
-            </Button>
-            <Shoppingcardtable
-              visible={this.state.visibleShopping}
-              closeShoppingModal={this.closeShoppingModal}
-            />
-
             <Button
               type="link"
               ghost
@@ -153,7 +131,12 @@ class Mybook extends Component {
                   justify="center"
                   className="user-upload-mybook"
                 >
-                  <Avatar className="profile-pic-user" size={200} icon="user" />
+                  <Avatar
+                    className="profile-pic-user"
+                    size={150}
+                    icon="user"
+                    style={{ backgroundColor: "#454f69" }}
+                  />
                 </Row>
 
                 <Row type="flex" justify="center">
@@ -165,7 +148,9 @@ class Mybook extends Component {
                   type="flex"
                   justify="center"
                 >
-                  <Text code>{detail.name}</Text>
+                  <Text code className="detail-user">
+                    {detail.name}
+                  </Text>
                 </Row>
 
                 <Row type="flex" justify="center">
@@ -177,7 +162,13 @@ class Mybook extends Component {
                   type="flex"
                   justify="center"
                 >
-                  <Text code>+66</Text> :<Text code>{detail.contact}</Text>
+                  <Text code className="detail-user">
+                    +66
+                  </Text>{" "}
+                  :
+                  <Text code className="detail-user">
+                    {detail.contact}
+                  </Text>
                 </Row>
 
                 <Row type="flex" justify="center">
@@ -188,7 +179,9 @@ class Mybook extends Component {
                   type="flex"
                   justify="center"
                 >
-                  <Text code>{detail.address}</Text>
+                  <Text code className="detail-user">
+                    {detail.address}
+                  </Text>
                 </Row>
 
                 <Row type="flex" justify="center">
@@ -221,10 +214,19 @@ class Mybook extends Component {
                       </Row>
 
                       <Row>
-                        <Paragraph ellipsis>{book.name_book}</Paragraph>
+                        <Paragraph ellipsis className="bookname-mybook">
+                          {book.name_book}
+                        </Paragraph>
+                      </Row>
+                      <Row type="flex" justify="center">
+                        <Text code>{book.typeBook}</Text>
                       </Row>
 
-                      <Row type="flex" justify="space-around">
+                      <Row
+                        type="flex"
+                        justify="center"
+                        className="ButtonDelete-card-mybook"
+                      >
                         <Button
                           type="danger"
                           onClick={() => this.handleDeleteMybook(book.id)}
@@ -244,7 +246,12 @@ class Mybook extends Component {
                         justify="center"
                         className="content-card-mybook"
                       >
-                        <Avatar shape="square" size={120} icon="plus" />
+                        <Avatar
+                          shape="square"
+                          size={120}
+                          icon="plus"
+                          style={{ backgroundColor: "#66a759" }}
+                        />
                       </Row>
                     </Card>
                   </Link>

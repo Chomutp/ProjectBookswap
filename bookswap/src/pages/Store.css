@@ -9,8 +9,9 @@
 }
 
 .nav-typebook-store {
-  background-color: #969696;
+  background-color: #eeeeee;
   height: 64vh;
+  border-radius: 25px;
 }
 
 .nav-typebook-color:hover {
@@ -45,4 +46,10 @@
 
 .content-card-store {
   margin-bottom: 20px;
+}
+
+.text-enjoy {
+  font-size: 30px;
+  margin-bottom: 40px;
+  color: #002e46 !important;
 }

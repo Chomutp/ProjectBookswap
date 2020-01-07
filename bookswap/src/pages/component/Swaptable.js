@@ -5,29 +5,31 @@ const { TabPane } = Tabs;
 
 const columnsSwapRequestTo = [
   {
-    title: "Book",
-    dataIndex: "book"
+    title: "My Book",
+    dataIndex: "mybook"
+    // render: mybook => {}
   },
   {
-    title: "Name's Book",
-    dataIndex: "namebook"
+    title: "Swap with Book",
+    dataIndex: "swapbook"
   },
   {
     title: "Swap",
     dataIndex: "swap"
   }
 ];
+
 const dataSwapRequestTo = [
   {
     key: "1",
-    book: "Book 1",
-    namebook: "Book 1",
+    mybook: "Book 1",
+    swapbook: "Book 2",
     swap: "xxxx"
   },
   {
     key: "2",
-    book: "Book 2",
-    namebook: "Book 2",
+    mybook: "Book 3",
+    swapbook: "Book 4",
     swap: "yyyyyy"
   }
 ];
@@ -45,6 +47,11 @@ const columnsSwapRequestFrom = [
     title: "Swap",
     dataIndex: "swap",
     render: (text, record) => <Button type="primary">Select Book</Button>
+  },
+  {
+    title: "Deny",
+    dataIndex: "deny",
+    render: (text, record) => <Button type="danger">Deny</Button>
   }
 ];
 const dataSwapRequestFrom = [
@@ -52,18 +59,24 @@ const dataSwapRequestFrom = [
     key: "1",
     book: "Book 1",
     namebook: "Book 1",
-    swap: ""
+    swap: "",
+    deny: ""
   },
   {
     key: "2",
     book: "Book 2",
     namebook: "Book 2",
-    swap: ""
+    swap: "",
+    deny: ""
   }
 ];
 
 class Swaptable extends Component {
   render() {
+    // const data = this.state.requests.map((request, index) => ({
+    //   key: index+1,
+    //   mybook: request.
+    // }))
     return (
       <Modal
         title="SWAP BOOK"

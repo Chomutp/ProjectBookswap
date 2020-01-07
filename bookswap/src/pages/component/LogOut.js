@@ -12,11 +12,9 @@ class LogOut extends Component {
   };
   render() {
     return (
-      <div>
-        <Button type="danger" onClick={this.handleLogout}>
-          Log Out
-        </Button>
-      </div>
+      <Button type="danger" onClick={this.handleLogout}>
+        Log Out
+      </Button>
     );
   }
 }

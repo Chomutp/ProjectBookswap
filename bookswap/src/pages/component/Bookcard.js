@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Layout, Button, Icon, Row, Col, Card, Avatar, Typography } from "antd";
 const { Content } = Layout;
 const { Paragraph } = Typography;
@@ -14,14 +15,25 @@ class Bookcard extends Component {
 
           <Row>
             <center>
-              <Paragraph ellipsis>{this.props.name_book}</Paragraph>
+              <Paragraph
+                ellipsis
+                style={{ textAlign: "center", fontWeight: "bold" }}
+              >
+                {this.props.name_book}
+              </Paragraph>
             </center>
           </Row>
 
           <Row type="flex" justify="center">
-            <Button>
-              <Icon type="retweet" />
-            </Button>
+            {this.props.isLogin ? (
+              <Button>
+                <Icon type="retweet" />
+              </Button>
+            ) : (
+              <Link to="/login">
+                <Button>Log in</Button>
+              </Link>
+            )}
           </Row>
         </Card>
       </Col>

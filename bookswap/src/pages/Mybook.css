@@ -103,3 +103,17 @@
 .content-mybook {
   padding-bottom: 10%;
 }
+
+.bookname-mybook {
+  text-align: center;
+  font-weight: bold;
+}
+
+.ButtonDelete-card-mybook {
+  margin-top: 10px;
+}
+
+.detail-user {
+  font-weight: bold;
+  font-size: 16px;
+}
