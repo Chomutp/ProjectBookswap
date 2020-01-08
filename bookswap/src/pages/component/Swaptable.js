@@ -1,38 +1,23 @@
 import React, { Component } from "react";
+import Axios from "../../config/axios.setup";
 import { Tabs, Table, Modal, Icon, Button } from "antd";
 
 const { TabPane } = Tabs;
 
-const columnsSwapRequestTo = [
-  {
-    title: "My Book",
-    dataIndex: "mybook"
-    // render: mybook => {}
-  },
-  {
-    title: "Swap with Book",
-    dataIndex: "swapbook"
-  },
-  {
-    title: "Swap",
-    dataIndex: "swap"
-  }
-];
-
-const dataSwapRequestTo = [
-  {
-    key: "1",
-    mybook: "Book 1",
-    swapbook: "Book 2",
-    swap: "xxxx"
-  },
-  {
-    key: "2",
-    mybook: "Book 3",
-    swapbook: "Book 4",
-    swap: "yyyyyy"
-  }
-];
+// const dataSwapRequestTo = [
+//   {
+//     key: "1",
+//     mybook: "Book 1",
+//     swapbook: "Book 2",
+//     swap: "xxxx"
+//   },
+//   {
+//     key: "2",
+//     mybook: "Book 3",
+//     swapbook: "Book 4",
+//     swap: "yyyyyy"
+//   }
+// ];
 
 const columnsSwapRequestFrom = [
   {
@@ -72,11 +57,47 @@ const dataSwapRequestFrom = [
 ];
 
 class Swaptable extends Component {
+  state = {
+    requests: []
+  };
+
+  componentDidMount = async () => {
+    const { data: requests } = await Axios.get(
+      "http://localhost:9999/swap-to-list",
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+        }
+      }
+    );
+    this.setState({ requests });
+    console.log(requests);
+  };
+
   render() {
-    // const data = this.state.requests.map((request, index) => ({
-    //   key: index+1,
-    //   mybook: request.
-    // }))
+    const columnsSwapRequestTo = [
+      {
+        title: "My Book",
+        dataIndex: "mybook"
+      },
+      {
+        title: "Swap with Book",
+        dataIndex: "swapbook"
+      },
+      {
+        title: "Swap",
+        dataIndex: "swap"
+      }
+    ];
+
+    const dataSwapRequestTo = this.state.requests.map((detail) => {
+      return {
+        mybook: detail.request_from_book_name,
+        swapbook: detail.request_to_book_name,
+        swap: detail.status
+      };
+    });
+
     return (
       <Modal
         title="SWAP BOOK"
