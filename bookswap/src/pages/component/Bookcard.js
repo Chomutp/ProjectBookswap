@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Layout, Button, Icon, Row, Col, Card, Avatar, Typography } from "antd";
 const { Content } = Layout;
-const { Paragraph } = Typography;
+const { Paragraph, Text } = Typography;
 
 class Bookcard extends Component {
   render() {
@@ -30,9 +30,7 @@ class Bookcard extends Component {
                 <Icon type="retweet" />
               </Button>
             ) : (
-              <Link to="/login">
-                <Button>Log in</Button>
-              </Link>
+              <Text code>Please Login</Text>
             )}
           </Row>
         </Card>

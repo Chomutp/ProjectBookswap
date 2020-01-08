@@ -71,9 +71,38 @@ module.exports = (app, db) => {
     passport.authenticate("jwt", { session: false }),
     async function(req, res) {
       const swapFromList = await db.swap.findAll({
+        raw: true,
         where: { request_to_user_id: req.user.id }
       });
-      res.send(swapFromList);
+      const fromBookIds = swapFromList.map(
+        request => request.request_from_book_id
+      );
+      const toBookIds = swapFromList.map(request => request.request_to_book_id);
+
+      const fromBookDetails = await db.book.findAll({
+        raw: true,
+        where: { id: { [Op.in]: fromBookIds } }
+      });
+      const toBookDetails = await db.book.findAll({
+        raw: true,
+        where: { id: { [Op.in]: toBookIds } }
+      });
+      let newLists = swapFromList.map(req => {
+        const request_to_book_name = toBookDetails.find(
+          bookDetail => bookDetail.id === req.request_to_book_id
+        ).name_book;
+        const request_from_book_name = fromBookDetails.find(
+          bookDetail => bookDetail.id === req.request_from_book_id
+        ).name_book;
+
+        return {
+          ...req,
+          request_to_book_name,
+          request_from_book_name
+        };
+      });
+      console.log(newLists);
+      res.json(newLists);
     }
   );
 

@@ -4,65 +4,14 @@ import { Tabs, Table, Modal, Icon, Button } from "antd";
 
 const { TabPane } = Tabs;
 
-// const dataSwapRequestTo = [
-//   {
-//     key: "1",
-//     mybook: "Book 1",
-//     swapbook: "Book 2",
-//     swap: "xxxx"
-//   },
-//   {
-//     key: "2",
-//     mybook: "Book 3",
-//     swapbook: "Book 4",
-//     swap: "yyyyyy"
-//   }
-// ];
-
-const columnsSwapRequestFrom = [
-  {
-    title: "Book",
-    dataIndex: "book"
-  },
-  {
-    title: "Name's Book",
-    dataIndex: "namebook"
-  },
-  {
-    title: "Swap",
-    dataIndex: "swap",
-    render: (text, record) => <Button type="primary">Select Book</Button>
-  },
-  {
-    title: "Deny",
-    dataIndex: "deny",
-    render: (text, record) => <Button type="danger">Deny</Button>
-  }
-];
-const dataSwapRequestFrom = [
-  {
-    key: "1",
-    book: "Book 1",
-    namebook: "Book 1",
-    swap: "",
-    deny: ""
-  },
-  {
-    key: "2",
-    book: "Book 2",
-    namebook: "Book 2",
-    swap: "",
-    deny: ""
-  }
-];
-
 class Swaptable extends Component {
   state = {
-    requests: []
+    requestTo: [],
+    requestFrom: []
   };
 
   componentDidMount = async () => {
-    const { data: requests } = await Axios.get(
+    const { data: requestTo } = await Axios.get(
       "http://localhost:9999/swap-to-list",
       {
         headers: {
@@ -70,8 +19,19 @@ class Swaptable extends Component {
         }
       }
     );
-    this.setState({ requests });
-    console.log(requests);
+    this.setState({ requestTo });
+    console.log(requestTo);
+
+    const { data: requestFrom } = await Axios.get(
+      "http://localhost:9999/swap-from-list",
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+        }
+      }
+    );
+    this.setState({ requestFrom });
+    console.log(requestFrom);
   };
 
   render() {
@@ -90,11 +50,42 @@ class Swaptable extends Component {
       }
     ];
 
-    const dataSwapRequestTo = this.state.requests.map((detail) => {
+    const dataSwapRequestTo = this.state.requestTo.map(detail => {
       return {
         mybook: detail.request_from_book_name,
         swapbook: detail.request_to_book_name,
         swap: detail.status
+      };
+    });
+
+    const columnsSwapRequestFrom = [
+      {
+        title: "Book's User",
+        dataIndex: "bookuser"
+      },
+      {
+        title: "Swap",
+        dataIndex: "swapbook",
+        render: (text, record) => <Button type="primary">Accept</Button>
+      },
+      {
+        title: "My Book",
+        dataIndex: "mybook"
+      },
+      {
+        title: "Deny",
+        dataIndex: "deny",
+        render: (text, record) => <Button type="danger">Deny</Button>
+      }
+    ];
+
+    const dataSwapRequestFrom = this.state.requestFrom.map(detail => {
+      return {
+        bookuser: detail.request_from_book_name,
+        swapbook: "",
+
+        mybook: detail.request_to_book_name,
+        deny: ""
       };
     });
 

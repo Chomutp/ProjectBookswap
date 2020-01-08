@@ -17,9 +17,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  // swap.associate = models => {
-  //   // swap.belongsTo(models.book);
-  // };
-
   return swap;
 };

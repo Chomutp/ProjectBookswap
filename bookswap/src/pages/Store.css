@@ -9,8 +9,9 @@
 }
 
 .nav-typebook-store {
+  padding-top: 30px;
   background-color: #eeeeee;
-  height: 64vh;
+  height: 58vh;
   border-radius: 25px;
 }
 
