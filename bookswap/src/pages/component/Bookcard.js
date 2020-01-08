@@ -1,10 +1,22 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import SelectBook from "../component/SelectBook";
 import { Layout, Button, Icon, Row, Col, Card, Avatar, Typography } from "antd";
 const { Content } = Layout;
 const { Paragraph, Text } = Typography;
 
 class Bookcard extends Component {
+  state = {
+    visibleSelect: false
+  };
+
+  openSelectModal = () => {
+    this.setState({ visibleSelect: true });
+  };
+
+  closeSelectModal = () => {
+    this.setState({ visibleSelect: false });
+  };
   render() {
     return (
       <Col xs={20} sm={20} md={10} lg={10} xl={5}>
@@ -26,9 +38,16 @@ class Bookcard extends Component {
 
           <Row type="flex" justify="center">
             {this.props.isLogin ? (
-              <Button>
-                <Icon type="retweet" />
-              </Button>
+              <div>
+                <Button onClick={this.openSelectModal}>
+                  <Icon type="retweet" />
+                </Button>
+                <SelectBook
+                  visible={this.state.visibleSelect}
+                  closeSelectModal={this.closeSelectModal}
+                  selectedBookId={this.props.book_id}
+                />
+              </div>
             ) : (
               <Text code>Please Login</Text>
             )}

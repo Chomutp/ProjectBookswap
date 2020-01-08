@@ -4,6 +4,7 @@ import Axios from "../config/axios.setup";
 import "./Store.css";
 import Bookcard from "./component/Bookcard";
 import Swaptable from "./component/Swaptable";
+import SelectBook from "./component/SelectBook";
 import LogOut from "./component/LogOut";
 import { Layout, Button, Icon, Row, Col, Typography } from "antd";
 const { Header, Footer, Sider, Content } = Layout;
@@ -12,7 +13,7 @@ const { Text } = Typography;
 export default class Store extends Component {
   state = {
     visibleSwap: false,
-    visibleShopping: false,
+
     isLogin: false,
     books: [],
     filterType: "all"
@@ -30,14 +31,6 @@ export default class Store extends Component {
 
   closeSwapModal = () => {
     this.setState({ visibleSwap: false });
-  };
-
-  openShoppingModal = () => {
-    this.setState({ visibleShopping: true });
-  };
-
-  closeShoppingModal = () => {
-    this.setState({ visibleShopping: false });
   };
 
   filterBy = bookType => {
@@ -158,7 +151,6 @@ export default class Store extends Component {
                 <Button
                   type="link"
                   ghost
-                  onClick={this.showModal}
                   className="navButtonColor"
                   onClick={this.openSwapModal}
                 >
@@ -216,7 +208,7 @@ export default class Store extends Component {
               {this.state.filterType === "all" &&
                 this.state.books.map(book => (
                   <Bookcard
-                    book_id={book.book_id}
+                    book_id={book.id}
                     typeBook={book.typeBook}
                     image_book={book.image_book}
                     name_book={book.name_book}
@@ -230,7 +222,7 @@ export default class Store extends Component {
                   .filter(book => book.typeBook === this.state.filterType)
                   .map(book => (
                     <Bookcard
-                      book_id={book.book_id}
+                      book_id={book.id}
                       typeBook={book.typeBook}
                       image_book={book.image_book}
                       name_book={book.name_book}
