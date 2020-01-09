@@ -1,12 +1,24 @@
 const passport = require("passport");
-const _ = require("lodash");
 const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
+const _ = require("lodash");
 
 module.exports = (app, db) => {
-  app.get("/books", function(req, res) {
-    db.book.findAll().then(data => {
-      res.json(data);
-    });
+  app.get("/books", passport.authenticate("jwt", { session: false }), function(
+    req,
+    res
+  ) {
+    db.book
+      .findAll(
+        // {where:{user.id!==user}}
+        {
+          where: { user_id: { [Op.notIn]: [req.user.id] } }
+        }
+      )
+      .then(data => {
+        console.log(data);
+        res.json(data);
+      });
   });
 
   app.get("/getUserByBookId/:id", function(req, res) {

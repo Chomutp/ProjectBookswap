@@ -345,7 +345,7 @@ class Addbook extends Component {
                       <Form.Item wrapperCol={{ span: 24 }}>
                         <Link to="/mybook">
                           <Button className="addbook-button-cancle">
-                            CANCLE
+                            CANCEL
                           </Button>
                         </Link>
 

@@ -72,7 +72,7 @@ module.exports = (app, db) => {
     async function(req, res) {
       const swapFromList = await db.swap.findAll({
         raw: true,
-        where: { request_to_user_id: req.user.id }
+        where: { request_to_user_id: req.user.id, status: "request" }
       });
       const fromBookIds = swapFromList.map(
         request => request.request_from_book_id

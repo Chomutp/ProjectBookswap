@@ -20,7 +20,11 @@ export default class Store extends Component {
 
   componentDidMount = async () => {
     let token = localStorage.getItem("ACCESS_TOKEN");
-    const { data: books } = await Axios.get("http://localhost:9999/books");
+    const { data: books } = await Axios.get("http://localhost:9999/books", {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    });
     this.setState({ books, isLogin: token ? true : false });
   };
 
@@ -159,7 +163,6 @@ export default class Store extends Component {
                 <Swaptable
                   visible={this.state.visibleSwap}
                   closeSwapModal={this.closeSwapModal}
-
                 />
 
                 <Link to="/mybook">

@@ -49,18 +49,34 @@ class Swaptable extends Component {
 
   componentDidMount = () => {
     this.fetchData();
-    var intervalId = setInterval(this.fetchData, 100000);
+    var intervalId = setInterval(this.fetchData, 1000);
     this.setState({ intervalId: intervalId });
   };
 
   handleAccept = index => () => {
     // let user = jwtDecode(localStorage.getItem("ACCESS_TOKEN"));
     console.log(this.state.requestFrom[index]);
-    Axios.put("/accept-swap/" + this.state.requestFrom[index].re, {
-      headers: {
-        Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+    console.log();
+    Axios.put(
+      "/accept-swap/" +
+        this.state.requestFrom[index].request_from_user_id +
+        "/" +
+        this.state.requestFrom[index].request_from_book_id +
+        "/" +
+        this.state.requestFrom[index].request_to_book_id,
+      "mock", // this is data mocking
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+        }
       }
-    });
+    )
+      .then(result => {
+        this.fetchData();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   handleDeny = index => () => {
