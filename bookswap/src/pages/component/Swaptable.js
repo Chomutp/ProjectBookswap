@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Axios from "../../config/axios.setup";
+import jwtDecode from "jwt-decode";
 import { Tabs, Table, Modal, Icon, Button } from "antd";
 
 const { TabPane } = Tabs;
@@ -7,10 +8,12 @@ const { TabPane } = Tabs;
 class Swaptable extends Component {
   state = {
     requestTo: [],
-    requestFrom: []
+    requestFrom: [],
+    requestToSwaped: [],
+    swapping: []
   };
 
-  componentDidMount = async () => {
+  fetchData = async () => {
     const { data: requestTo } = await Axios.get(
       "http://localhost:9999/swap-to-list",
       {
@@ -20,7 +23,7 @@ class Swaptable extends Component {
       }
     );
     this.setState({ requestTo });
-    console.log(requestTo);
+    // console.log(requestTo);
 
     const { data: requestFrom } = await Axios.get(
       "http://localhost:9999/swap-from-list",
@@ -31,7 +34,61 @@ class Swaptable extends Component {
       }
     );
     this.setState({ requestFrom });
-    console.log(requestFrom);
+    // console.log(requestFrom);
+
+    const { data: requestToSwaped } = await Axios.get(
+      "http://localhost:9999/swap-to-list-swaped",
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+        }
+      }
+    );
+    this.setState({ requestToSwaped });
+  };
+
+  componentDidMount = () => {
+    this.fetchData();
+    var intervalId = setInterval(this.fetchData, 100000);
+    this.setState({ intervalId: intervalId });
+  };
+
+  handleAccept = index => () => {
+    // let user = jwtDecode(localStorage.getItem("ACCESS_TOKEN"));
+    console.log(this.state.requestFrom[index]);
+    Axios.put("/accept-swap/" + this.state.requestFrom[index].re, {
+      headers: {
+        Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+      }
+    });
+  };
+
+  handleDeny = index => () => {
+    console.log(index);
+    // const { requestFrom } = this.state.requestFrom;
+    console.log(this.state.requestFrom[index]);
+    // console.log(requestFrom.request_from_user_id);
+    Axios.delete(
+      "/deny-swap/" +
+        this.state.requestFrom[index].request_from_user_id +
+        "/" +
+        this.state.requestFrom[index].request_from_book_id +
+        "/" +
+        this.state.requestFrom[index].request_to_book_id,
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+        }
+      }
+    )
+      .then(result => {
+        this.fetchData();
+        // console.log(result2);
+        // this.props.history.push("/store");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -63,31 +120,64 @@ class Swaptable extends Component {
         title: "Book's User",
         dataIndex: "bookuser"
       },
-      {
-        title: "Swap",
-        dataIndex: "swapbook",
-        render: (text, record) => <Button type="primary">Accept</Button>
-      },
+
       {
         title: "My Book",
         dataIndex: "mybook"
       },
       {
+        title: "Swap",
+        dataIndex: "swapbook",
+        render: (text, record, index) => (
+          <Button type="primary" onClick={this.handleAccept(index)}>
+            Accept
+          </Button>
+        )
+      },
+      {
         title: "Deny",
         dataIndex: "deny",
-        render: (text, record) => <Button type="danger">Deny</Button>
+        render: (text, recond, index) => (
+          <Button type="danger" onClick={this.handleDeny(index)}>
+            Deny
+          </Button>
+        )
       }
     ];
 
     const dataSwapRequestFrom = this.state.requestFrom.map(detail => {
       return {
         bookuser: detail.request_from_book_name,
-        swapbook: "",
-
         mybook: detail.request_to_book_name,
+        swapbook: "",
         deny: ""
       };
     });
+
+    const columnsSwapRequestToSwaped = [
+      {
+        title: "My Book",
+        dataIndex: "mybook"
+      },
+      {
+        title: "Swap with Book",
+        dataIndex: "swapbook"
+      },
+      {
+        title: "Swap",
+        dataIndex: "swap"
+      }
+    ];
+
+    const dataSwapRequestToSwaped = this.state.requestToSwaped.map(detail => {
+      return {
+        mybook: detail.request_from_book_name,
+        swapbook: detail.request_to_book_name,
+        swap: detail.status
+      };
+    });
+
+    console.log(this.state.requestFrom);
 
     return (
       <Modal
@@ -132,6 +222,24 @@ class Swaptable extends Component {
               <Table
                 columns={columnsSwapRequestFrom}
                 dataSource={dataSwapRequestFrom}
+                size="small"
+              />
+            </div>
+          </TabPane>
+
+          <TabPane
+            tab={
+              <span>
+                <Icon type="retweet" />
+                SWAPED
+              </span>
+            }
+            key="3"
+          >
+            <div>
+              <Table
+                columns={columnsSwapRequestToSwaped}
+                dataSource={dataSwapRequestToSwaped}
                 size="small"
               />
             </div>

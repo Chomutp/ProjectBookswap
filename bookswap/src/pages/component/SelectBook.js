@@ -1,12 +1,22 @@
 import React, { Component } from "react";
 import Axios from "../../config/axios.setup";
-import { Modal, Button, Col, Row, Avatar, Typography, Card, Icon } from "antd";
+import {
+  Modal,
+  Button,
+  Col,
+  Row,
+  Avatar,
+  Typography,
+  Card,
+  message
+} from "antd";
 const { Paragraph, Text } = Typography;
 
 class SelectBook extends Component {
   state = {
     books: [],
-    selectBookId: undefined
+    selectBookId: undefined,
+    swapToList: []
   };
 
   fetchData = async () => {
@@ -20,7 +30,18 @@ class SelectBook extends Component {
       }
     );
     this.setState({ books });
+
+    // const { data: swapToList } = await Axios.get("/swap-to-list", {
+    //   headers: {
+    //     Authorization: "Bearer " + localStorage.ACCESS_TOKEN
+    //   }
+    // });
+    // this.setState({ swapToList });
   };
+
+  success = () => {
+  message.success('This is a success message');
+};
 
   componentDidMount = () => {
     this.fetchData();
@@ -36,6 +57,7 @@ class SelectBook extends Component {
       }
     })
       .then(result1 => {
+        this.fetchData();
         // console.log(result1.data);
         let payload = {
           request_from_book_id: id,
@@ -49,7 +71,10 @@ class SelectBook extends Component {
           }
         })
           .then(result2 => {
+            this.success()
+            this.fetchData();
             console.log(result2);
+            // this.props.history.push("/store");
           })
           .catch(err => {
             console.log(err);
@@ -61,6 +86,9 @@ class SelectBook extends Component {
   };
 
   render() {
+    const success = () => {
+      message.success("Send request already");
+    };
     return (
       <Modal
         title="SELECT MY BOOK"

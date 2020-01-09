@@ -13,7 +13,6 @@ const { Text } = Typography;
 export default class Store extends Component {
   state = {
     visibleSwap: false,
-
     isLogin: false,
     books: [],
     filterType: "all"
@@ -160,6 +159,7 @@ export default class Store extends Component {
                 <Swaptable
                   visible={this.state.visibleSwap}
                   closeSwapModal={this.closeSwapModal}
+
                 />
 
                 <Link to="/mybook">
